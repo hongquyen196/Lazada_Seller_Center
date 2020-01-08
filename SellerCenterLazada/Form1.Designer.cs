@@ -38,15 +38,17 @@
             this.QueueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.productSalesAnalysisGridView = new System.Windows.Forms.DataGridView();
+            this.uvGridView = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.button7 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -59,6 +61,8 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.payAmountlDataGridView = new System.Windows.Forms.DataGridView();
             this.priceFormattedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.discountPriceFormattedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,13 +75,17 @@
             this.stockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdTimestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productInfoVoListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.numIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.skuIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imageDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uvValueDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uvCycleCrcDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productSalesAnalysisModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.skuIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uvValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uvCycleCrcDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productSalesAnalysisModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.passwordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,10 +97,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListDataGridView)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.productSalesAnalysisGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uvGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.payAmountlDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productSalesAnalysisModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLoginBindingSource)).BeginInit();
@@ -102,11 +112,13 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(4, 201);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1092, 480);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tabPage1
             // 
@@ -196,11 +208,13 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button10);
+            this.tabPage2.Controls.Add(this.button9);
+            this.tabPage2.Controls.Add(this.button7);
+            this.tabPage2.Controls.Add(this.button8);
+            this.tabPage2.Controls.Add(this.button6);
             this.tabPage2.Controls.Add(this.tabControl2);
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.dateTimePicker2);
-            this.tabPage2.Controls.Add(this.dateTimePicker1);
-            this.tabPage2.Controls.Add(this.button7);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -208,6 +222,56 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Phân tích bán hàng nâng cao";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(330, 19);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.TabIndex = 7;
+            this.button10.Text = "Tháng";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(249, 19);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.TabIndex = 7;
+            this.button9.Text = "Tuần";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(87, 19);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 7;
+            this.button7.Text = "7 ngày";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click_1);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(168, 19);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 7;
+            this.button8.Text = "30 ngày";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(6, 19);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "1 ngày";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // tabControl2
             // 
@@ -219,9 +283,11 @@
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1071, 406);
             this.tabControl2.TabIndex = 6;
+            this.tabControl2.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl2_Selected);
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.payAmountlDataGridView);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -232,7 +298,7 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.productSalesAnalysisGridView);
+            this.tabPage4.Controls.Add(this.uvGridView);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -241,24 +307,25 @@
             this.tabPage4.Text = "Theo lượt xem";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // productSalesAnalysisGridView
+            // uvGridView
             // 
-            this.productSalesAnalysisGridView.AutoGenerateColumns = false;
-            this.productSalesAnalysisGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.productSalesAnalysisGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.numIdDataGridViewTextBoxColumn,
+            this.uvGridView.AutoGenerateColumns = false;
+            this.uvGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.uvGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.skuIdDataGridViewTextBoxColumn,
             this.imageDataGridViewTextBoxColumn,
             this.productNameDataGridViewTextBoxColumn,
             this.uvValueDataGridViewTextBoxColumn,
             this.uvCycleCrcDataGridViewTextBoxColumn});
-            this.productSalesAnalysisGridView.DataSource = this.productSalesAnalysisModelBindingSource;
-            this.productSalesAnalysisGridView.Location = new System.Drawing.Point(6, 6);
-            this.productSalesAnalysisGridView.Name = "productSalesAnalysisGridView";
-            this.productSalesAnalysisGridView.Size = new System.Drawing.Size(1054, 368);
-            this.productSalesAnalysisGridView.TabIndex = 1;
-            this.productSalesAnalysisGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.productSalesAnalysisGridView_ColumnHeaderMouseClick);
-            this.productSalesAnalysisGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.productSalesAnalysisGridView_DataBindingComplete);
+            this.uvGridView.DataSource = this.productSalesAnalysisModelBindingSource;
+            this.uvGridView.Location = new System.Drawing.Point(6, 6);
+            this.uvGridView.Name = "uvGridView";
+            this.uvGridView.Size = new System.Drawing.Size(1054, 368);
+            this.uvGridView.TabIndex = 1;
+            this.uvGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.productSalesAnalysisGridView_ColumnHeaderMouseClick);
+            this.uvGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.productSalesAnalysisGridView_DataBindingComplete);
+            this.uvGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.uvGridView_RowPostPaint);
+            this.uvGridView.Scroll += new System.Windows.Forms.ScrollEventHandler(this.uvGridView_Scroll);
             // 
             // tabPage5
             // 
@@ -273,39 +340,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(464, 11);
+            this.label1.Location = new System.Drawing.Point(4, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(220, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Phân tích bán hàng nâng cao của sản phẩm";
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.CustomFormat = "yyyy-MM-dd";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(112, 6);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(100, 20);
-            this.dateTimePicker2.TabIndex = 4;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "yyyy-MM-dd";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(6, 6);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(100, 20);
-            this.dateTimePicker1.TabIndex = 3;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(383, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "Phân tích";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // groupBox1
             // 
@@ -375,6 +414,7 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(169, 20);
             this.textBoxPassword.TabIndex = 13;
+            this.textBoxPassword.Text = "pZHD6Na6xWPqCr6";
             // 
             // textBoxUsername
             // 
@@ -382,6 +422,7 @@
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(169, 20);
             this.textBoxUsername.TabIndex = 12;
+            this.textBoxUsername.Text = "ntuan8x@gmail.com";
             // 
             // button3
             // 
@@ -414,6 +455,30 @@
             this.dataGridViewTextBoxColumn1.DataPropertyName = "createdTimestamp";
             this.dataGridViewTextBoxColumn1.HeaderText = "createdTimestamp";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "createdTimestamp";
+            this.dataGridViewTextBoxColumn3.HeaderText = "createdTimestamp";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // payAmountlDataGridView
+            // 
+            this.payAmountlDataGridView.AutoGenerateColumns = false;
+            this.payAmountlDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.payAmountlDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.skuIdDataGridViewTextBoxColumn1,
+            this.imageDataGridViewTextBoxColumn1,
+            this.productNameDataGridViewTextBoxColumn1,
+            this.uvValueDataGridViewTextBoxColumn1,
+            this.uvCycleCrcDataGridViewTextBoxColumn1});
+            this.payAmountlDataGridView.DataSource = this.productSalesAnalysisModelBindingSource;
+            this.payAmountlDataGridView.Location = new System.Drawing.Point(6, 6);
+            this.payAmountlDataGridView.Name = "payAmountlDataGridView";
+            this.payAmountlDataGridView.Size = new System.Drawing.Size(1022, 371);
+            this.payAmountlDataGridView.TabIndex = 0;
+            this.payAmountlDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.payAmountlDataGridView_RowPostPaint);
+            this.payAmountlDataGridView.Scroll += new System.Windows.Forms.ScrollEventHandler(this.payAmountlDataGridView_Scroll);
             // 
             // priceFormattedDataGridViewTextBoxColumn
             // 
@@ -485,11 +550,39 @@
             // 
             this.productInfoVoListBindingSource.DataSource = typeof(SellerCenterLazada.Models.ProductInfoVoList);
             // 
-            // numIdDataGridViewTextBoxColumn
+            // skuIdDataGridViewTextBoxColumn1
             // 
-            this.numIdDataGridViewTextBoxColumn.DataPropertyName = "numId";
-            this.numIdDataGridViewTextBoxColumn.HeaderText = "numId";
-            this.numIdDataGridViewTextBoxColumn.Name = "numIdDataGridViewTextBoxColumn";
+            this.skuIdDataGridViewTextBoxColumn1.DataPropertyName = "skuId";
+            this.skuIdDataGridViewTextBoxColumn1.HeaderText = "skuId";
+            this.skuIdDataGridViewTextBoxColumn1.Name = "skuIdDataGridViewTextBoxColumn1";
+            // 
+            // imageDataGridViewTextBoxColumn1
+            // 
+            this.imageDataGridViewTextBoxColumn1.DataPropertyName = "image";
+            this.imageDataGridViewTextBoxColumn1.HeaderText = "image";
+            this.imageDataGridViewTextBoxColumn1.Name = "imageDataGridViewTextBoxColumn1";
+            // 
+            // productNameDataGridViewTextBoxColumn1
+            // 
+            this.productNameDataGridViewTextBoxColumn1.DataPropertyName = "productName";
+            this.productNameDataGridViewTextBoxColumn1.HeaderText = "productName";
+            this.productNameDataGridViewTextBoxColumn1.Name = "productNameDataGridViewTextBoxColumn1";
+            // 
+            // uvValueDataGridViewTextBoxColumn1
+            // 
+            this.uvValueDataGridViewTextBoxColumn1.DataPropertyName = "uvValue";
+            this.uvValueDataGridViewTextBoxColumn1.HeaderText = "uvValue";
+            this.uvValueDataGridViewTextBoxColumn1.Name = "uvValueDataGridViewTextBoxColumn1";
+            // 
+            // uvCycleCrcDataGridViewTextBoxColumn1
+            // 
+            this.uvCycleCrcDataGridViewTextBoxColumn1.DataPropertyName = "uvCycleCrc";
+            this.uvCycleCrcDataGridViewTextBoxColumn1.HeaderText = "uvCycleCrc";
+            this.uvCycleCrcDataGridViewTextBoxColumn1.Name = "uvCycleCrcDataGridViewTextBoxColumn1";
+            // 
+            // productSalesAnalysisModelBindingSource
+            // 
+            this.productSalesAnalysisModelBindingSource.DataSource = typeof(SellerCenterLazada.Models.ProductSalesAnalysisModel);
             // 
             // skuIdDataGridViewTextBoxColumn
             // 
@@ -520,10 +613,6 @@
             this.uvCycleCrcDataGridViewTextBoxColumn.DataPropertyName = "uvCycleCrc";
             this.uvCycleCrcDataGridViewTextBoxColumn.HeaderText = "uvCycleCrc";
             this.uvCycleCrcDataGridViewTextBoxColumn.Name = "uvCycleCrcDataGridViewTextBoxColumn";
-            // 
-            // productSalesAnalysisModelBindingSource
-            // 
-            this.productSalesAnalysisModelBindingSource.DataSource = typeof(SellerCenterLazada.Models.ProductSalesAnalysisModel);
             // 
             // usernameDataGridViewTextBoxColumn
             // 
@@ -576,11 +665,13 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.productSalesAnalysisGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uvGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.payAmountlDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productSalesAnalysisModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLoginBindingSource)).EndInit();
@@ -629,17 +720,25 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.BindingSource productSalesAnalysisModelBindingSource;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.DataGridView productSalesAnalysisGridView;
+        private System.Windows.Forms.DataGridView uvGridView;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridView payAmountlDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn skuIdDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn imageDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uvValueDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uvCycleCrcDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn skuIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn imageDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn;

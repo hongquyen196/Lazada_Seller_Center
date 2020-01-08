@@ -30,8 +30,8 @@ namespace SellerCenterLazada
         // Đăng dạo reviews
         //https://sellercenter.lazada.vn/asc-review/seller-manage-reviews/updateShareStatus , post data = "type=feed&reviewRateId=228442819291426&isActive=true"
         // Phân tích bán hàng nâng cao sản phẩm
-        const string PRODUCT_SALES_ANALYSIS_VIEW_URL = "https://m.sellercenter.lazada.vn/sycm/lazada/product/performance/mobile/realtime/rank.json?indexCode=uv&pageSize={0}&page={1}&brandId=&cateId=&lang=&_sycm_wl_=1";
-        const string PRODUCT_SALES_ANALYSIS_URL = "https://m.sellercenter.lazada.vn/sycm/lazada/mobile/dashboard/product/rankList/dateRange.json?indexCode=uv&pageSize={0}&page={1}&dateType=day&dateRange={2}&brandId=&cateId=&lang=&_sycm_wl_=1";
+        const string COMMON_DATE_URL = "https://m.sellercenter.lazada.vn/sycm/lazada/common/commDate.json";
+        const string PRODUCT_SALES_ANALYSIS_URL = "https://m.sellercenter.lazada.vn/sycm/lazada/mobile/dashboard/product/rankList/dateRange.json?pageSize={0}&page={1}&dateType={2}&dateRange={3}&indexCode={4}";
 
 
 
@@ -113,9 +113,15 @@ namespace SellerCenterLazada
             return productInfoVos;
         }
 
-        public static ProductSalesAnalysis GetProductSalesAnalysis(int pageSize = 100, int pageNum = 1, string dateRange = "")
+        public static CommonDate GetCommonDate()
         {
-            var data = Get(string.Format(PRODUCT_SALES_ANALYSIS_URL, pageSize, pageNum, dateRange));
+            var data = Get(COMMON_DATE_URL);
+            return JsonConvert.DeserializeObject<CommonDate>(data);
+        }
+
+        public static ProductSalesAnalysis GetProductSalesAnalysis(int pageSize = 100, int pageNum = 1, string dateType = "", string dateRange = "", string indexCode = "")
+        {
+            var data = Get(string.Format(PRODUCT_SALES_ANALYSIS_URL, pageSize, pageNum, dateType, dateRange, indexCode));
             return JsonConvert.DeserializeObject<ProductSalesAnalysis>(data);
         }
 

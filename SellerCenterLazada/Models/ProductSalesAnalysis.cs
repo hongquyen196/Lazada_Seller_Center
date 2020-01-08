@@ -12,6 +12,12 @@ namespace SellerCenterLazada.Models
         public int value { get; set; }
     }
 
+    public class PayAmount
+    {
+        public double? cycleCrc { get; set; }
+        public double value { get; set; }
+    }
+
     public class StatDate
     {
         public string value { get; set; }
@@ -55,6 +61,7 @@ namespace SellerCenterLazada.Models
     public class Datum
     {
         public Uv uv { get; set; }
+        public PayAmount payAmount { get; set; }
         public StatDate statDate { get; set; }
         public Image image { get; set; }
         public SellerId sellerId { get; set; }
