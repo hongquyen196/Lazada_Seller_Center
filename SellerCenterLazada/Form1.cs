@@ -178,6 +178,7 @@ namespace SellerCenterLazada
                 productInfoVoListDataGridView.Update();
                 productInfoVoListDataGridView.Refresh();
                 button5.Enabled = true;
+                get(0);
             }
         }
 
@@ -313,11 +314,6 @@ namespace SellerCenterLazada
             this.Dispose();
         }
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void productInfoVoListDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             switch (e.ColumnIndex)
@@ -379,7 +375,7 @@ namespace SellerCenterLazada
         CommonDate commDate = null;
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            if (e.TabPageIndex == 1)
+            if (e.TabPageIndex == 1) //Click vào tab Phân tích bán hàng nâng cao
             {
                 commDate = APIHelper.GetCommonDate();
             }
@@ -387,9 +383,10 @@ namespace SellerCenterLazada
 
         private void tabControl2_Selected(object sender, TabControlEventArgs e)
         {
+            get(0);
             if (e.TabPageIndex == 2)
             {
-                get(0);
+                getProductAnalysis(0);
             }
         }
         int buttonSaved = 1;
@@ -428,10 +425,17 @@ namespace SellerCenterLazada
             }
             List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
             ProductSalesAnalysis productSalesAnalysis = null;
-            int tab = tabControl2.SelectedIndex;
+            int tab = tabControl2.SelectedIndex, i;
             switch (tab)
             {
                 case 0:
+                    i = 0;
+                    payAmountlDataGridView.Columns[i++].HeaderText = "SKU";
+                    payAmountlDataGridView.Columns[i++].HeaderText = "Ảnh";
+                    payAmountlDataGridView.Columns[i++].HeaderText = "Tên sản phẩm";
+                    payAmountlDataGridView.Columns[i++].HeaderText = "Doanh thu";
+                    payAmountlDataGridView.Columns[i++].HeaderText = "So sánh với";
+                    payAmountlDataGridView.Columns[i++].HeaderText = "Đường dẫn";
                     if (payAmountlDataGridView.Rows.Count > 1 && payAmountlDataGridView.Rows.Count < 100)
                     {
                         return;
@@ -443,13 +447,11 @@ namespace SellerCenterLazada
                         dateRange: dateRange,
                         indexCode: indexCode
                         );
-                    if (productSalesAnalysis.code == 0 && productSalesAnalysis.data != null)
+                    if (productSalesAnalysis.code == 0 && productSalesAnalysis.data != null && productSalesAnalysis.data.data.Count > 0)
                     {
-                        //int num = 0;
                         productSalesAnalysis.data.data.ForEach(p =>
                         {
                             ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
-                            //model.numId = ++num;
                             model.sellerSKU = p.sellerSKU.value.ToString();
                             model.image = p.image.value;
                             model.productName = HttpUtility.HtmlDecode(p.productName.value);
@@ -469,6 +471,13 @@ namespace SellerCenterLazada
                     }
                     break;
                 case 1:
+                    i = 0;
+                    uvGridView.Columns[i++].HeaderText = "SKU";
+                    uvGridView.Columns[i++].HeaderText = "Ảnh";
+                    uvGridView.Columns[i++].HeaderText = "Tên sản phẩm";
+                    uvGridView.Columns[i++].HeaderText = "Khách truy cập";
+                    uvGridView.Columns[i++].HeaderText = "So sánh với";
+                    uvGridView.Columns[i++].HeaderText = "Đường dẫn";
                     if (uvGridView.Rows.Count > 1 && uvGridView.Rows.Count < 100)
                     {
                         return;
@@ -507,15 +516,85 @@ namespace SellerCenterLazada
                     AnalysisOverview analysisOverview = APIHelper.GetAnalysisOverview(dateType, dateRange);
                     if (analysisOverview.code == 0 && analysisOverview.data != null)
                     {
-                        buttonShortOfStock.Text = string.Format(buttonShortOfStock.Text, analysisOverview.data.shortOfStock.value);
-                        buttonConversionDropping.Text = string.Format(buttonConversionDropping.Text, analysisOverview.data.conversionDropping.value);
-                        buttonRevenueDropping.Text = string.Format(buttonRevenueDropping.Text, analysisOverview.data.revenueDropping.value);
-                        buttonNotSelling.Text = string.Format(buttonNotSelling.Text, analysisOverview.data.notSelling.value);
-                        buttonPriceUncompetitive.Text = string.Format(buttonPriceUncompetitive.Text, analysisOverview.data.priceUncompetitive.value);
+                        buttonShortOfStock.Text = string.Format(buttonShortOfStock.Tag.ToString(), analysisOverview.data.shortOfStock.value);
+                        buttonConversionDropping.Text = string.Format(buttonConversionDropping.Tag.ToString(), analysisOverview.data.conversionDropping.value);
+                        buttonRevenueDropping.Text = string.Format(buttonRevenueDropping.Tag.ToString(), analysisOverview.data.revenueDropping.value);
+                        buttonNotSelling.Text = string.Format(buttonNotSelling.Tag.ToString(), analysisOverview.data.notSelling.value);
+                        buttonPriceUncompetitive.Text = string.Format(buttonPriceUncompetitive.Tag.ToString(), analysisOverview.data.priceUncompetitive.value);
                     }
                     break;
             }
         }
+        void getProductAnalysis(int button = 0, int pageNum = 1)
+        {
+            buttonSavedPA = button;
+            string dateType = "";
+            switch (button)
+            {
+                case 0:
+                    dateType = "priceUncompetitive";
+                    break;
+                case 1:
+                    dateType = "shortOfStock";
+                    break;
+                case 2:
+                    dateType = "revenueDropping";
+                    break;
+                case 3:
+                    dateType = "conversionDropping";
+                    break;
+                case 4:
+                    dateType = "notSelling";
+                    break;
+            }
+            List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
+            var productAnalysis = APIHelper.GetProductAnalysis(100, pageNum, dateType);
+            if (productAnalysis.code == 0 && productAnalysis.data != null)
+            {
+                productAnalysis.data.ForEach(p =>
+                {
+                    ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
+                    model.sellerSKU = p.sellerSKU.value.ToString();
+                    model.image = p.image.value;
+                    model.productName = HttpUtility.HtmlDecode(p.productName.value);
+                    switch (button)
+                    {
+                        case 0:
+                            model.uvValue = p.skuPrice?.value.ToString("#,###");
+                            model.uvCycleCrc = p.competiterLowestPrice?.value.ToString("#,###");
+                            break;
+                        case 1:
+                            model.uvValue = p.avgPayQuantity30d?.value.ToString();
+                            model.uvCycleCrc = p.stockCnt1d?.value.ToString();
+                            break;
+                        case 2:
+                            model.uvValue = p.crtOrdAmt7d?.value.ToString("#,###");
+                            model.uvCycleCrc = p.lastCycleRevenue7d?.value.ToString("#,###");
+                            break;
+                        case 3:
+                            model.uvValue = p.avgConversion7d?.value?.ToString("P", CultureInfo.InvariantCulture);
+                            model.uvCycleCrc = p.lowConversionGap?.value?.ToString("P", CultureInfo.InvariantCulture);
+                            break;
+                        case 4:
+                            model.uvValue = p.lastCycleByr7d?.value.ToString();
+                            model.uvCycleCrc = p.uv7d?.value.ToString();
+                            break;
+                    }
+                    model.link = "https://www.lazada.vn/products/" + p.link.value;
+                    list.Add(model);
+                });
+                if (pageNum > 1)
+                {
+                    List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)productAnalysisDataGridView.DataSource;
+                    list = listConcat.Concat(list).ToList();
+                }
+                productAnalysisDataGridView.DataSource = list;
+                productAnalysisDataGridView.Update();
+                productAnalysisDataGridView.Refresh();
+            }
+        }
+
+
         private void button6_Click(object sender, EventArgs e)
         {
             countPageNum = 0;
@@ -604,101 +683,63 @@ namespace SellerCenterLazada
             //e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
-        void getProductAnalysis(int button = 0, int pageNum = 1)
-        {
-            //if (button == buttonSavedPA && productAnalysisDataGridView.Rows.Count > 1 && productAnalysisDataGridView.Rows.Count < 100)
-            //{
-            //    return;
-            //}
-            buttonSavedPA = button;
-            string dateType = "";
-            switch (button)
-            {
-                case 0:
-                    dateType = "priceUncompetitive";
-                    break;
-                case 1:
-                    dateType = "shortOfStock";
-                    break;
-                case 2:
-                    dateType = "revenueDropping";
-                    break;
-                case 3:
-                    dateType = "conversionDropping";
-                    break;
-                case 4:
-                    dateType = "notSelling";
-                    break;
-            }
-            List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
-            var productAnalysis = APIHelper.GetProductAnalysis(100, pageNum, dateType);
-            if (productAnalysis.code == 0 && productAnalysis.data != null)
-            {
-                productAnalysis.data.ForEach(p =>
-                {
-                    ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
-                    model.sellerSKU = p.sellerSKU.value.ToString();
-                    model.image = p.image.value;
-                    model.productName = HttpUtility.HtmlDecode(p.productName.value);
-                    switch (button)
-                    {
-                        case 0:
-                            model.uvValue = p.skuPrice?.value.ToString("#,###");
-                            model.uvCycleCrc = p.competiterLowestPrice?.value.ToString("#,###");
-                            break;
-                        case 1:
-                            model.uvValue = p.avgPayQuantity30d?.value.ToString();
-                            model.uvCycleCrc = p.stockCnt1d?.value.ToString();
-                            break;
-                        case 2:
-                            model.uvValue = p.crtOrdAmt7d?.value.ToString("#,###");
-                            model.uvCycleCrc = p.lastCycleRevenue7d?.value.ToString("#,###");
-                            break;
-                        case 3:
-                            model.uvValue =  p.avgConversion7d?.value?.ToString("P", CultureInfo.InvariantCulture);
-                            model.uvCycleCrc = p.lowConversionGap?.value?.ToString("P", CultureInfo.InvariantCulture);
-                            break;
-                        case 4:
-                            model.uvValue = p.lastCycleByr7d?.value.ToString();
-                            model.uvCycleCrc = p.uv7d?.value.ToString();
-                            break;
-                    }
-                    model.link = "https://www.lazada.vn/products/" + p.link.value;
-                    list.Add(model);
-                });
-                if (pageNum > 1)
-                {
-                    List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)productAnalysisDataGridView.DataSource;
-                    list = listConcat.Concat(list).ToList();
-                }
-                productAnalysisDataGridView.DataSource = list;
-                productAnalysisDataGridView.Update();
-                productAnalysisDataGridView.Refresh();
-            }
-        }
-
         private void buttonPriceUncompetitive_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            productAnalysisDataGridView.Columns[i++].HeaderText = "SKU";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Ảnh";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Tên sản phẩm";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Giá khuyến mãi";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Giá thấp nhất tìm thấy trên sản giao dịch khác";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Đường dẫn";
             getProductAnalysis(0);
         }
 
         private void buttonShortOfStock_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            productAnalysisDataGridView.Columns[i++].HeaderText = "SKU";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Ảnh";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Tên sản phẩm";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Số lượng sản phẩm trung bình bán 30 ngày gần nhất";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Hàng tồn ngày hôm qua";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Đường dẫn";
             getProductAnalysis(1);
         }
 
         private void buttonRevenueDropping_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            productAnalysisDataGridView.Columns[i++].HeaderText = "SKU";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Ảnh";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Tên sản phẩm";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Doanh thu 7 ngày gần nhất";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Lượng khách hàng 7 ngày trước đó";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Đường dẫn";
             getProductAnalysis(2);
         }
 
         private void buttonConversionDropping_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            productAnalysisDataGridView.Columns[i++].HeaderText = "SKU";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Ảnh";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Tên sản phẩm";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Tỉ lệ mua hàng 7 ngày gần nhất";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Chênh lệch tỉ lệ mua hàng";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Đường dẫn";
             getProductAnalysis(3);
         }
 
         private void buttonNotSelling_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            productAnalysisDataGridView.Columns[i++].HeaderText = "SKU";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Ảnh";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Tên sản phẩm";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Lượng khách hàng trong 7 ngày gần nhất";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Khách truy cập trong 7 ngày gần nhất";
+            productAnalysisDataGridView.Columns[i++].HeaderText = "Đường dẫn";
             getProductAnalysis(4);
         }
 
