@@ -5,7 +5,6 @@ E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Debug\Dapper.dll
 E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Debug\Newtonsoft.Json.dll
 E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Debug\Dapper.xml
 E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Debug\Newtonsoft.Json.xml
-E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenter.csprojAssemblyReference.cache
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenterLazada.Form1.resources
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenterLazada.Properties.Resources.resources
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenter.csproj.GenerateResource.cache

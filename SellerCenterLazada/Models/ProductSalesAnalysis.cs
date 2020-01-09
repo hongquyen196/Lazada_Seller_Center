@@ -140,7 +140,7 @@ namespace SellerCenterLazada.Models
 
     public class DatumPa
     {
-        public SkuId skuId { get; set; }
+        public SellerSKU sellerSKU { get; set; }
         public Image image { get; set; }
         public ProductName productName { get; set; }
         public CompetiterLowestPrice competiterLowestPrice { get; set; }
@@ -153,6 +153,7 @@ namespace SellerCenterLazada.Models
         public StockCnt1d stockCnt1d { get; set; }       
         public LastCycleByr7d lastCycleByr7d { get; set; }
         public Uv7d uv7d { get; set; }
+        public Link link { get; set; }
     }
 
     public class ProductAnalysis
@@ -166,12 +167,12 @@ namespace SellerCenterLazada.Models
 
     public class ProductSalesAnalysisModel
     {
-        public int numId { get; set; }
-        public string skuId { get; set; }
+        public string sellerSKU { get; set; }
         public string image { get; set; }
         public string productName { get; set; }
         public string uvValue { get; set; }
         public string uvCycleCrc { get; set; }
+        public string link { get; set; }
 
     }
 }

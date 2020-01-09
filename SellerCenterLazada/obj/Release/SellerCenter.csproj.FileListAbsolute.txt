@@ -1,0 +1,14 @@
+E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Release\SellerCenterLazada.exe.config
+E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Release\SellerCenterLazada.exe
+E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Release\SellerCenterLazada.pdb
+E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Release\Dapper.dll
+E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Release\Newtonsoft.Json.dll
+E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Release\Dapper.xml
+E:\VLANCE\SellerCenter\SellerCenterLazada\bin\Release\Newtonsoft.Json.xml
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenter.csprojAssemblyReference.cache
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenterLazada.Form1.resources
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenterLazada.Properties.Resources.resources
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenter.csproj.GenerateResource.cache
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenter.csproj.CopyComplete
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenterLazada.exe
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenterLazada.pdb

@@ -69,6 +69,7 @@
             this.buttonConversionDropping = new System.Windows.Forms.Button();
             this.buttonNotSelling = new System.Windows.Forms.Button();
             this.productAnalysisDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceFormattedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.discountPriceFormattedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,28 +82,25 @@
             this.stockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdTimestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productInfoVoListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.imageDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uvValueDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uvCycleCrcDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productSalesAnalysisModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uvValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uvCycleCrcDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.passwordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cookieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userLoginBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.skuIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imageDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uvValueDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uvCycleCrcDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.skuIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uvValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uvCycleCrcDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListDataGridView)).BeginInit();
@@ -311,10 +309,10 @@
             // 
             // payAmountlDataGridView
             // 
+            this.payAmountlDataGridView.AllowUserToOrderColumns = true;
             this.payAmountlDataGridView.AutoGenerateColumns = false;
             this.payAmountlDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.payAmountlDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.skuIdDataGridViewTextBoxColumn1,
             this.imageDataGridViewTextBoxColumn1,
             this.productNameDataGridViewTextBoxColumn1,
             this.uvValueDataGridViewTextBoxColumn1,
@@ -324,6 +322,8 @@
             this.payAmountlDataGridView.Name = "payAmountlDataGridView";
             this.payAmountlDataGridView.Size = new System.Drawing.Size(1033, 368);
             this.payAmountlDataGridView.TabIndex = 0;
+            this.payAmountlDataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.payAmountlDataGridView_ColumnHeaderMouseClick);
+            this.payAmountlDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.payAmountlDataGridView_DataBindingComplete);
             this.payAmountlDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.payAmountlDataGridView_RowPostPaint);
             this.payAmountlDataGridView.Scroll += new System.Windows.Forms.ScrollEventHandler(this.payAmountlDataGridView_Scroll);
             // 
@@ -340,10 +340,10 @@
             // 
             // uvGridView
             // 
+            this.uvGridView.AllowUserToOrderColumns = true;
             this.uvGridView.AutoGenerateColumns = false;
             this.uvGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.uvGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.skuIdDataGridViewTextBoxColumn,
             this.imageDataGridViewTextBoxColumn,
             this.productNameDataGridViewTextBoxColumn,
             this.uvValueDataGridViewTextBoxColumn,
@@ -552,10 +552,10 @@
             // 
             // productAnalysisDataGridView
             // 
+            this.productAnalysisDataGridView.AllowUserToOrderColumns = true;
             this.productAnalysisDataGridView.AutoGenerateColumns = false;
             this.productAnalysisDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.productAnalysisDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
@@ -565,6 +565,13 @@
             this.productAnalysisDataGridView.Name = "productAnalysisDataGridView";
             this.productAnalysisDataGridView.Size = new System.Drawing.Size(1033, 342);
             this.productAnalysisDataGridView.TabIndex = 5;
+            this.productAnalysisDataGridView.Scroll += new System.Windows.Forms.ScrollEventHandler(this.productAnalysisDataGridView_Scroll);
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "createdTimestamp";
+            this.dataGridViewTextBoxColumn4.HeaderText = "createdTimestamp";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
             // priceFormattedDataGridViewTextBoxColumn
             // 
@@ -636,9 +643,84 @@
             // 
             this.productInfoVoListBindingSource.DataSource = typeof(SellerCenterLazada.Models.ProductInfoVoList);
             // 
+            // imageDataGridViewTextBoxColumn1
+            // 
+            this.imageDataGridViewTextBoxColumn1.DataPropertyName = "image";
+            this.imageDataGridViewTextBoxColumn1.HeaderText = "image";
+            this.imageDataGridViewTextBoxColumn1.Name = "imageDataGridViewTextBoxColumn1";
+            // 
+            // productNameDataGridViewTextBoxColumn1
+            // 
+            this.productNameDataGridViewTextBoxColumn1.DataPropertyName = "productName";
+            this.productNameDataGridViewTextBoxColumn1.HeaderText = "productName";
+            this.productNameDataGridViewTextBoxColumn1.Name = "productNameDataGridViewTextBoxColumn1";
+            this.productNameDataGridViewTextBoxColumn1.Width = 600;
+            // 
+            // uvValueDataGridViewTextBoxColumn1
+            // 
+            this.uvValueDataGridViewTextBoxColumn1.DataPropertyName = "uvValue";
+            this.uvValueDataGridViewTextBoxColumn1.HeaderText = "uvValue";
+            this.uvValueDataGridViewTextBoxColumn1.Name = "uvValueDataGridViewTextBoxColumn1";
+            // 
+            // uvCycleCrcDataGridViewTextBoxColumn1
+            // 
+            this.uvCycleCrcDataGridViewTextBoxColumn1.DataPropertyName = "uvCycleCrc";
+            this.uvCycleCrcDataGridViewTextBoxColumn1.HeaderText = "uvCycleCrc";
+            this.uvCycleCrcDataGridViewTextBoxColumn1.Name = "uvCycleCrcDataGridViewTextBoxColumn1";
+            // 
             // productSalesAnalysisModelBindingSource
             // 
             this.productSalesAnalysisModelBindingSource.DataSource = typeof(SellerCenterLazada.Models.ProductSalesAnalysisModel);
+            // 
+            // imageDataGridViewTextBoxColumn
+            // 
+            this.imageDataGridViewTextBoxColumn.DataPropertyName = "image";
+            this.imageDataGridViewTextBoxColumn.HeaderText = "image";
+            this.imageDataGridViewTextBoxColumn.Name = "imageDataGridViewTextBoxColumn";
+            // 
+            // productNameDataGridViewTextBoxColumn
+            // 
+            this.productNameDataGridViewTextBoxColumn.DataPropertyName = "productName";
+            this.productNameDataGridViewTextBoxColumn.HeaderText = "productName";
+            this.productNameDataGridViewTextBoxColumn.Name = "productNameDataGridViewTextBoxColumn";
+            this.productNameDataGridViewTextBoxColumn.Width = 600;
+            // 
+            // uvValueDataGridViewTextBoxColumn
+            // 
+            this.uvValueDataGridViewTextBoxColumn.DataPropertyName = "uvValue";
+            this.uvValueDataGridViewTextBoxColumn.HeaderText = "uvValue";
+            this.uvValueDataGridViewTextBoxColumn.Name = "uvValueDataGridViewTextBoxColumn";
+            // 
+            // uvCycleCrcDataGridViewTextBoxColumn
+            // 
+            this.uvCycleCrcDataGridViewTextBoxColumn.DataPropertyName = "uvCycleCrc";
+            this.uvCycleCrcDataGridViewTextBoxColumn.HeaderText = "uvCycleCrc";
+            this.uvCycleCrcDataGridViewTextBoxColumn.Name = "uvCycleCrcDataGridViewTextBoxColumn";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "image";
+            this.dataGridViewTextBoxColumn6.HeaderText = "image";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "productName";
+            this.dataGridViewTextBoxColumn7.HeaderText = "productName";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.Width = 600;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "uvValue";
+            this.dataGridViewTextBoxColumn8.HeaderText = "uvValue";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "uvCycleCrc";
+            this.dataGridViewTextBoxColumn9.HeaderText = "uvCycleCrc";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             // 
             // usernameDataGridViewTextBoxColumn
             // 
@@ -673,99 +755,6 @@
             // userLoginBindingSource
             // 
             this.userLoginBindingSource.DataSource = typeof(SellerCenterLazada.Models.UserLogin);
-            // 
-            // skuIdDataGridViewTextBoxColumn1
-            // 
-            this.skuIdDataGridViewTextBoxColumn1.DataPropertyName = "skuId";
-            this.skuIdDataGridViewTextBoxColumn1.HeaderText = "skuId";
-            this.skuIdDataGridViewTextBoxColumn1.Name = "skuIdDataGridViewTextBoxColumn1";
-            // 
-            // imageDataGridViewTextBoxColumn1
-            // 
-            this.imageDataGridViewTextBoxColumn1.DataPropertyName = "image";
-            this.imageDataGridViewTextBoxColumn1.HeaderText = "image";
-            this.imageDataGridViewTextBoxColumn1.Name = "imageDataGridViewTextBoxColumn1";
-            // 
-            // productNameDataGridViewTextBoxColumn1
-            // 
-            this.productNameDataGridViewTextBoxColumn1.DataPropertyName = "productName";
-            this.productNameDataGridViewTextBoxColumn1.HeaderText = "productName";
-            this.productNameDataGridViewTextBoxColumn1.Name = "productNameDataGridViewTextBoxColumn1";
-            this.productNameDataGridViewTextBoxColumn1.Width = 600;
-            // 
-            // uvValueDataGridViewTextBoxColumn1
-            // 
-            this.uvValueDataGridViewTextBoxColumn1.DataPropertyName = "uvValue";
-            this.uvValueDataGridViewTextBoxColumn1.HeaderText = "uvValue";
-            this.uvValueDataGridViewTextBoxColumn1.Name = "uvValueDataGridViewTextBoxColumn1";
-            // 
-            // uvCycleCrcDataGridViewTextBoxColumn1
-            // 
-            this.uvCycleCrcDataGridViewTextBoxColumn1.DataPropertyName = "uvCycleCrc";
-            this.uvCycleCrcDataGridViewTextBoxColumn1.HeaderText = "uvCycleCrc";
-            this.uvCycleCrcDataGridViewTextBoxColumn1.Name = "uvCycleCrcDataGridViewTextBoxColumn1";
-            // 
-            // skuIdDataGridViewTextBoxColumn
-            // 
-            this.skuIdDataGridViewTextBoxColumn.DataPropertyName = "skuId";
-            this.skuIdDataGridViewTextBoxColumn.HeaderText = "skuId";
-            this.skuIdDataGridViewTextBoxColumn.Name = "skuIdDataGridViewTextBoxColumn";
-            // 
-            // imageDataGridViewTextBoxColumn
-            // 
-            this.imageDataGridViewTextBoxColumn.DataPropertyName = "image";
-            this.imageDataGridViewTextBoxColumn.HeaderText = "image";
-            this.imageDataGridViewTextBoxColumn.Name = "imageDataGridViewTextBoxColumn";
-            // 
-            // productNameDataGridViewTextBoxColumn
-            // 
-            this.productNameDataGridViewTextBoxColumn.DataPropertyName = "productName";
-            this.productNameDataGridViewTextBoxColumn.HeaderText = "productName";
-            this.productNameDataGridViewTextBoxColumn.Name = "productNameDataGridViewTextBoxColumn";
-            this.productNameDataGridViewTextBoxColumn.Width = 600;
-            // 
-            // uvValueDataGridViewTextBoxColumn
-            // 
-            this.uvValueDataGridViewTextBoxColumn.DataPropertyName = "uvValue";
-            this.uvValueDataGridViewTextBoxColumn.HeaderText = "uvValue";
-            this.uvValueDataGridViewTextBoxColumn.Name = "uvValueDataGridViewTextBoxColumn";
-            // 
-            // uvCycleCrcDataGridViewTextBoxColumn
-            // 
-            this.uvCycleCrcDataGridViewTextBoxColumn.DataPropertyName = "uvCycleCrc";
-            this.uvCycleCrcDataGridViewTextBoxColumn.HeaderText = "uvCycleCrc";
-            this.uvCycleCrcDataGridViewTextBoxColumn.Name = "uvCycleCrcDataGridViewTextBoxColumn";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "skuId";
-            this.dataGridViewTextBoxColumn5.HeaderText = "skuId";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "image";
-            this.dataGridViewTextBoxColumn6.HeaderText = "image";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "productName";
-            this.dataGridViewTextBoxColumn7.HeaderText = "productName";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.Width = 600;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "uvValue";
-            this.dataGridViewTextBoxColumn8.HeaderText = "uvValue";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "uvCycleCrc";
-            this.dataGridViewTextBoxColumn9.HeaderText = "uvCycleCrc";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             // 
             // Form1
             // 
@@ -876,6 +865,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }
 

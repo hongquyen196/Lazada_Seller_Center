@@ -432,6 +432,10 @@ namespace SellerCenterLazada
             switch (tab)
             {
                 case 0:
+                    if (payAmountlDataGridView.Rows.Count > 1 && payAmountlDataGridView.Rows.Count < 100)
+                    {
+                        return;
+                    }
                     indexCode = "payAmount";
                     productSalesAnalysis = APIHelper.GetProductSalesAnalysis(
                         pageNum: pageNum,
@@ -446,11 +450,12 @@ namespace SellerCenterLazada
                         {
                             ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
                             //model.numId = ++num;
-                            model.skuId = p.skuId.value.ToString();
+                            model.sellerSKU = p.sellerSKU.value.ToString();
                             model.image = p.image.value;
                             model.productName = HttpUtility.HtmlDecode(p.productName.value);
                             model.uvValue = p.payAmount.value.ToString("#,###");
                             model.uvCycleCrc = p.payAmount.cycleCrc != null ? p.payAmount.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
+                            model.link = "https://www.lazada.vn/products/" + p.link.value;
                             list.Add(model);
                         });
                         if (pageNum > 1)
@@ -464,6 +469,10 @@ namespace SellerCenterLazada
                     }
                     break;
                 case 1:
+                    if (uvGridView.Rows.Count > 1 && uvGridView.Rows.Count < 100)
+                    {
+                        return;
+                    }
                     indexCode = "uv";
                     productSalesAnalysis = APIHelper.GetProductSalesAnalysis(
                         pageNum: pageNum,
@@ -473,16 +482,15 @@ namespace SellerCenterLazada
                         );
                     if (productSalesAnalysis.code == 0 && productSalesAnalysis.data != null)
                     {
-                        //int num = 0;
                         productSalesAnalysis.data.data.ForEach(p =>
                         {
                             ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
-                            //model.numId = ++num;
-                            model.skuId = p.skuId.value.ToString();
+                            model.sellerSKU = p.sellerSKU.value.ToString();
                             model.image = p.image.value;
                             model.productName = HttpUtility.HtmlDecode(p.productName.value);
                             model.uvValue = p.uv.value.ToString();
                             model.uvCycleCrc = p.uv.cycleCrc != null ? p.uv.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
+                            model.link = "https://www.lazada.vn/products/" + p.link.value;
                             list.Add(model);
                         });
                         if (pageNum > 1)
@@ -556,6 +564,15 @@ namespace SellerCenterLazada
                 get(buttonSaved, ++countPageNum);
             }
         }
+        int buttonSavedPA = 0;
+        private void productAnalysisDataGridView_Scroll(object sender, ScrollEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            if (grid.DisplayedRowCount(false) + grid.FirstDisplayedScrollingRowIndex >= grid.RowCount)
+            {
+                getProductAnalysis(buttonSavedPA, ++countPageNum);
+            }
+        }
 
         private void payAmountlDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
@@ -589,6 +606,11 @@ namespace SellerCenterLazada
 
         void getProductAnalysis(int button = 0, int pageNum = 1)
         {
+            //if (button == buttonSavedPA && productAnalysisDataGridView.Rows.Count > 1 && productAnalysisDataGridView.Rows.Count < 100)
+            //{
+            //    return;
+            //}
+            buttonSavedPA = button;
             string dateType = "";
             switch (button)
             {
@@ -615,7 +637,7 @@ namespace SellerCenterLazada
                 productAnalysis.data.ForEach(p =>
                 {
                     ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
-                    model.skuId = p.skuId.value.ToString();
+                    model.sellerSKU = p.sellerSKU.value.ToString();
                     model.image = p.image.value;
                     model.productName = HttpUtility.HtmlDecode(p.productName.value);
                     switch (button)
@@ -641,6 +663,7 @@ namespace SellerCenterLazada
                             model.uvCycleCrc = p.uv7d?.value.ToString();
                             break;
                     }
+                    model.link = "https://www.lazada.vn/products/" + p.link.value;
                     list.Add(model);
                 });
                 if (pageNum > 1)
@@ -677,6 +700,49 @@ namespace SellerCenterLazada
         private void buttonNotSelling_Click(object sender, EventArgs e)
         {
             getProductAnalysis(4);
+        }
+
+        private void payAmountlDataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = payAmountlDataGridView.Columns[e.ColumnIndex];
+            DataGridViewColumn oldColumn = payAmountlDataGridView.SortedColumn;
+            ListSortDirection direction;
+
+            // If oldColumn is null, then the DataGridView is not sorted.
+            if (oldColumn != null)
+            {
+                // Sort the same column again, reversing the SortOrder.
+                if (oldColumn == newColumn &&
+                    payAmountlDataGridView.SortOrder == SortOrder.Ascending)
+                {
+                    direction = ListSortDirection.Descending;
+                }
+                else
+                {
+                    // Sort a new column and remove the old SortGlyph.
+                    direction = ListSortDirection.Ascending;
+                    oldColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+                }
+            }
+            else
+            {
+                direction = ListSortDirection.Ascending;
+            }
+
+            // Sort the selected column.
+            payAmountlDataGridView.Sort(newColumn, direction);
+            newColumn.HeaderCell.SortGlyphDirection =
+                direction == ListSortDirection.Ascending ?
+                SortOrder.Ascending : SortOrder.Descending;
+        }
+
+        private void payAmountlDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            // Put each of the columns into programmatic sort mode.
+            foreach (DataGridViewColumn column in payAmountlDataGridView.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.Programmatic;
+            }
         }
     }
 
