@@ -1,0 +1,17 @@
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\bin\Release\SellerCenterLazada.exe.config
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\bin\Release\SellerCenterLazada.exe
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\bin\Release\SellerCenterLazada.pdb
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\bin\Release\Dapper.dll
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\bin\Release\Newtonsoft.Json.dll
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\bin\Release\Dapper.xml
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\bin\Release\Newtonsoft.Json.xml
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenter.csprojAssemblyReference.cache
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenterLazada.Form1.resources
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenterLazada.Form2.resources
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenterLazada.Properties.Resources.resources
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenter.csproj.GenerateResource.cache
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenter.csproj.CopyComplete
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenterLazada.exe
+C:\Users\PhuongNV\Source\Repos\SellerLazada\SellerCenterLazada\obj\Release\SellerCenterLazada.pdb
+C:\Users\PhuongNV\source\repos\SellerLazada\SellerCenterLazada\bin\Release\DevComponents.DotNetBar2.dll
+C:\Users\PhuongNV\source\repos\SellerLazada\SellerCenterLazada\bin\Release\DevComponents.DotNetBar2.xml

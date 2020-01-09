@@ -84,6 +84,7 @@
             this.cookieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userLoginBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListDataGridView)).BeginInit();
@@ -174,6 +175,7 @@
             this.productInfoVoListDataGridView.Name = "productInfoVoListDataGridView";
             this.productInfoVoListDataGridView.Size = new System.Drawing.Size(1071, 320);
             this.productInfoVoListDataGridView.TabIndex = 22;
+            this.productInfoVoListDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.productInfoVoListDataGridView_CellClick);
             // 
             // QueueDate
             // 
@@ -350,6 +352,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(897, 151);
             this.dataGridView1.TabIndex = 16;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // label3
             // 
@@ -559,6 +562,12 @@
             // 
             this.userLoginBindingSource.DataSource = typeof(SellerCenterLazada.Models.UserLogin);
             // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "createdTimestamp";
+            this.dataGridViewTextBoxColumn3.HeaderText = "createdTimestamp";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -645,6 +654,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn uvValueDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn uvCycleCrcDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }
 
