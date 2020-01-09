@@ -25,7 +25,9 @@ namespace SellerCenterLazada
         DateTimePicker dtp = new DateTimePicker();
         Rectangle rectangle;
         private bool IsClosed = false;
-        public Form1()
+        Form licenseForm = null;
+
+        public Form1(Form form = null)
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
@@ -36,6 +38,7 @@ namespace SellerCenterLazada
             dtp.TextChanged += new EventHandler(dtp_TextChange);
             productInfoVoListDataGridView.ColumnWidthChanged += ProductInfoVoListDataGridView_ColumnWidthChanged;
             productInfoVoListDataGridView.Scroll += ProductInfoVoListDataGridView_Scroll;
+            licenseForm = form;
         }
 
         private void ProductInfoVoListDataGridView_Scroll(object sender, ScrollEventArgs e)
@@ -311,6 +314,7 @@ namespace SellerCenterLazada
         {
             IsClosed = true;
             this.Dispose();
+            licenseForm.Dispose();
         }
 
         private void button7_Click(object sender, EventArgs e)
