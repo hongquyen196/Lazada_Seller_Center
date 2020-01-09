@@ -68,6 +68,8 @@
     </Compile>
     <Compile Include="Helpers\APIHelper.cs" />
     <Compile Include="Helpers\CryptoHelper.cs" />
+    <Compile Include="Models\AnalysisOverview.cs" />
+    <Compile Include="Models\CommonDate.cs" />
     <Compile Include="Helpers\HardDiskHelper.cs" />
     <Compile Include="License.cs">
       <SubType>Form</SubType>

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Drawing;
 using System.Threading;
 using System.Globalization;
+using System.Web;
 
 namespace SellerCenterLazada
 {
@@ -157,6 +158,7 @@ namespace SellerCenterLazada
                 dataGridView1.Update();
                 dataGridView1.Refresh();
                 button2.Enabled = true;
+                tabControl1.Enabled = true;
                 _accountRepository.AddSellerAccount(sellerAccounts);
                 InsertAllProductInfo(sellerAccounts);
             }).Start();
@@ -317,21 +319,7 @@ namespace SellerCenterLazada
 
         private void button7_Click(object sender, EventArgs e)
         {
-            List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
-            ProductSalesAnalysis data = APIHelper.GetProductSalesAnalysis(dateRange: dateTimePicker1.Text + "%7C" + dateTimePicker2.Text);
-            int num = 0;
-            data.data.data.ForEach(p =>
-            {
-                ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
-                model.numId = ++num;
-                model.skuId = p.skuId.value + "";
-                model.image = p.image.value;
-                model.productName = p.productName.value;
-                model.uvValue = p.uv.value + "";
-                model.uvCycleCrc = p.uv.cycleCrc != null ? p.uv.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "-";
-                list.Add(model);
-            });
-            productSalesAnalysisModelBindingSource.DataSource = list;
+
         }
 
         private void productInfoVoListDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -351,9 +339,9 @@ namespace SellerCenterLazada
         private void productSalesAnalysisGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
-        //http://csharp.net-informations.com/datagridview/csharp-datagridview-filter.htm
-            DataGridViewColumn newColumn = productSalesAnalysisGridView.Columns[e.ColumnIndex];
-            DataGridViewColumn oldColumn = productSalesAnalysisGridView.SortedColumn;
+            //http://csharp.net-informations.com/datagridview/csharp-datagridview-filter.htm
+            DataGridViewColumn newColumn = uvGridView.Columns[e.ColumnIndex];
+            DataGridViewColumn oldColumn = uvGridView.SortedColumn;
             ListSortDirection direction;
 
             // If oldColumn is null, then the DataGridView is not sorted.
@@ -361,7 +349,7 @@ namespace SellerCenterLazada
             {
                 // Sort the same column again, reversing the SortOrder.
                 if (oldColumn == newColumn &&
-                    productSalesAnalysisGridView.SortOrder == SortOrder.Ascending)
+                    uvGridView.SortOrder == SortOrder.Ascending)
                 {
                     direction = ListSortDirection.Descending;
                 }
@@ -378,7 +366,7 @@ namespace SellerCenterLazada
             }
 
             // Sort the selected column.
-            productSalesAnalysisGridView.Sort(newColumn, direction);
+            uvGridView.Sort(newColumn, direction);
             newColumn.HeaderCell.SortGlyphDirection =
                 direction == ListSortDirection.Ascending ?
                 SortOrder.Ascending : SortOrder.Descending;
@@ -387,7 +375,375 @@ namespace SellerCenterLazada
         private void productSalesAnalysisGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             // Put each of the columns into programmatic sort mode.
-            foreach (DataGridViewColumn column in productSalesAnalysisGridView.Columns)
+            foreach (DataGridViewColumn column in uvGridView.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.Programmatic;
+            }
+        }
+        CommonDate commDate = null;
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPageIndex == 1)
+            {
+                commDate = APIHelper.GetCommonDate();
+            }
+        }
+
+        private void tabControl2_Selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPageIndex == 2)
+            {
+                get(0);
+            }
+        }
+        int buttonSaved = 1;
+        void get(int button, int pageNum = 1)
+        {
+            buttonSaved = button;
+            if (commDate == null)
+            {
+                return;
+            }
+            string dateType = "";
+            string dateRange = "";
+            string indexCode = "";
+            switch (button)
+            {
+                case 0:
+                    dateType = "day";
+                    dateRange = commDate.data.updateDay + "%7C" + commDate.data.updateDay;
+                    break;
+                case 1:
+                    dateType = "recent7";
+                    dateRange = DateTime.Parse(commDate.data.updateDay).AddDays(-6).ToString("yyyy-MM-dd") + "%7C" + commDate.data.updateDay;
+                    break;
+                case 2:
+                    dateType = "recent30";
+                    dateRange = DateTime.Parse(commDate.data.updateDay).AddDays(-29).ToString("yyyy-MM-dd") + "%7C" + commDate.data.updateDay;
+                    break;
+                case 3:
+                    dateType = "week";
+                    dateRange = DateTime.Parse(commDate.data.updateWeek).AddDays(-6).ToString("yyyy-MM-dd") + "%7C" + commDate.data.updateWeek;
+                    break;
+                case 4:
+                    dateType = "month";
+                    dateRange = DateTime.Parse(commDate.data.updateMonth).AddDays(-30).ToString("yyyy-MM-dd") + "%7C" + commDate.data.updateMonth;
+                    break;
+            }
+            List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
+            ProductSalesAnalysis productSalesAnalysis = null;
+            int tab = tabControl2.SelectedIndex;
+            switch (tab)
+            {
+                case 0:
+                    if (payAmountlDataGridView.Rows.Count > 1 && payAmountlDataGridView.Rows.Count < 100)
+                    {
+                        return;
+                    }
+                    indexCode = "payAmount";
+                    productSalesAnalysis = APIHelper.GetProductSalesAnalysis(
+                        pageNum: pageNum,
+                        dateType: dateType,
+                        dateRange: dateRange,
+                        indexCode: indexCode
+                        );
+                    if (productSalesAnalysis.code == 0 && productSalesAnalysis.data != null)
+                    {
+                        //int num = 0;
+                        productSalesAnalysis.data.data.ForEach(p =>
+                        {
+                            ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
+                            //model.numId = ++num;
+                            model.sellerSKU = p.sellerSKU.value.ToString();
+                            model.image = p.image.value;
+                            model.productName = HttpUtility.HtmlDecode(p.productName.value);
+                            model.uvValue = p.payAmount.value.ToString("#,###");
+                            model.uvCycleCrc = p.payAmount.cycleCrc != null ? p.payAmount.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
+                            model.link = "https://www.lazada.vn/products/" + p.link.value;
+                            list.Add(model);
+                        });
+                        if (pageNum > 1)
+                        {
+                            List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)payAmountlDataGridView.DataSource;
+                            list = listConcat.Concat(list).ToList();
+                        }
+                        payAmountlDataGridView.DataSource = list;
+                        payAmountlDataGridView.Update();
+                        payAmountlDataGridView.Refresh();
+                    }
+                    break;
+                case 1:
+                    if (uvGridView.Rows.Count > 1 && uvGridView.Rows.Count < 100)
+                    {
+                        return;
+                    }
+                    indexCode = "uv";
+                    productSalesAnalysis = APIHelper.GetProductSalesAnalysis(
+                        pageNum: pageNum,
+                        dateType: dateType,
+                        dateRange: dateRange,
+                        indexCode: indexCode
+                        );
+                    if (productSalesAnalysis.code == 0 && productSalesAnalysis.data != null)
+                    {
+                        productSalesAnalysis.data.data.ForEach(p =>
+                        {
+                            ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
+                            model.sellerSKU = p.sellerSKU.value.ToString();
+                            model.image = p.image.value;
+                            model.productName = HttpUtility.HtmlDecode(p.productName.value);
+                            model.uvValue = p.uv.value.ToString();
+                            model.uvCycleCrc = p.uv.cycleCrc != null ? p.uv.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
+                            model.link = "https://www.lazada.vn/products/" + p.link.value;
+                            list.Add(model);
+                        });
+                        if (pageNum > 1)
+                        {
+                            List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)uvGridView.DataSource;
+                            list = listConcat.Concat(list).ToList();
+                        }
+                        uvGridView.DataSource = list;
+                        uvGridView.Update();
+                        uvGridView.Refresh();
+                    }
+                    break;
+                case 2:
+                    AnalysisOverview analysisOverview = APIHelper.GetAnalysisOverview(dateType, dateRange);
+                    if (analysisOverview.code == 0 && analysisOverview.data != null)
+                    {
+                        buttonShortOfStock.Text = string.Format(buttonShortOfStock.Text, analysisOverview.data.shortOfStock.value);
+                        buttonConversionDropping.Text = string.Format(buttonConversionDropping.Text, analysisOverview.data.conversionDropping.value);
+                        buttonRevenueDropping.Text = string.Format(buttonRevenueDropping.Text, analysisOverview.data.revenueDropping.value);
+                        buttonNotSelling.Text = string.Format(buttonNotSelling.Text, analysisOverview.data.notSelling.value);
+                        buttonPriceUncompetitive.Text = string.Format(buttonPriceUncompetitive.Text, analysisOverview.data.priceUncompetitive.value);
+                    }
+                    break;
+            }
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            countPageNum = 0;
+            get(0);
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            countPageNum = 0;
+            get(1);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            countPageNum = 0;
+            get(2);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            countPageNum = 0;
+            get(3);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            countPageNum = 0;
+            get(4);
+        }
+
+        int countPageNum = 0;
+        private void payAmountlDataGridView_Scroll(object sender, ScrollEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            if (grid.DisplayedRowCount(false) + grid.FirstDisplayedScrollingRowIndex >= grid.RowCount)
+            {
+                get(buttonSaved, ++countPageNum);
+            }
+        }
+
+        private void uvGridView_Scroll(object sender, ScrollEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            if (grid.DisplayedRowCount(false) + grid.FirstDisplayedScrollingRowIndex >= grid.RowCount)
+            {
+                get(buttonSaved, ++countPageNum);
+            }
+        }
+        int buttonSavedPA = 0;
+        private void productAnalysisDataGridView_Scroll(object sender, ScrollEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            if (grid.DisplayedRowCount(false) + grid.FirstDisplayedScrollingRowIndex >= grid.RowCount)
+            {
+                getProductAnalysis(buttonSavedPA, ++countPageNum);
+            }
+        }
+
+        private void payAmountlDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            //var grid = sender as DataGridView;
+            //var rowIdx = (e.RowIndex + 1).ToString();
+            //var centerFormat = new StringFormat()
+            //{
+            //    // right alignment might actually make more sense for numbers
+            //    Alignment = StringAlignment.Center,
+            //    LineAlignment = StringAlignment.Center
+            //};
+
+            //var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            //e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
+        private void uvGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            //var grid = sender as DataGridView;
+            //var rowIdx = (e.RowIndex + 1).ToString();
+            //var centerFormat = new StringFormat()
+            //{
+            //    // right alignment might actually make more sense for numbers
+            //    Alignment = StringAlignment.Center,
+            //    LineAlignment = StringAlignment.Center
+            //};
+
+            //var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            //e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
+        void getProductAnalysis(int button = 0, int pageNum = 1)
+        {
+            //if (button == buttonSavedPA && productAnalysisDataGridView.Rows.Count > 1 && productAnalysisDataGridView.Rows.Count < 100)
+            //{
+            //    return;
+            //}
+            buttonSavedPA = button;
+            string dateType = "";
+            switch (button)
+            {
+                case 0:
+                    dateType = "priceUncompetitive";
+                    break;
+                case 1:
+                    dateType = "shortOfStock";
+                    break;
+                case 2:
+                    dateType = "revenueDropping";
+                    break;
+                case 3:
+                    dateType = "conversionDropping";
+                    break;
+                case 4:
+                    dateType = "notSelling";
+                    break;
+            }
+            List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
+            var productAnalysis = APIHelper.GetProductAnalysis(100, pageNum, dateType);
+            if (productAnalysis.code == 0 && productAnalysis.data != null)
+            {
+                productAnalysis.data.ForEach(p =>
+                {
+                    ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
+                    model.sellerSKU = p.sellerSKU.value.ToString();
+                    model.image = p.image.value;
+                    model.productName = HttpUtility.HtmlDecode(p.productName.value);
+                    switch (button)
+                    {
+                        case 0:
+                            model.uvValue = p.skuPrice?.value.ToString("#,###");
+                            model.uvCycleCrc = p.competiterLowestPrice?.value.ToString("#,###");
+                            break;
+                        case 1:
+                            model.uvValue = p.avgPayQuantity30d?.value.ToString();
+                            model.uvCycleCrc = p.stockCnt1d?.value.ToString();
+                            break;
+                        case 2:
+                            model.uvValue = p.crtOrdAmt7d?.value.ToString("#,###");
+                            model.uvCycleCrc = p.lastCycleRevenue7d?.value.ToString("#,###");
+                            break;
+                        case 3:
+                            model.uvValue =  p.avgConversion7d?.value?.ToString("P", CultureInfo.InvariantCulture);
+                            model.uvCycleCrc = p.lowConversionGap?.value?.ToString("P", CultureInfo.InvariantCulture);
+                            break;
+                        case 4:
+                            model.uvValue = p.lastCycleByr7d?.value.ToString();
+                            model.uvCycleCrc = p.uv7d?.value.ToString();
+                            break;
+                    }
+                    model.link = "https://www.lazada.vn/products/" + p.link.value;
+                    list.Add(model);
+                });
+                if (pageNum > 1)
+                {
+                    List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)productAnalysisDataGridView.DataSource;
+                    list = listConcat.Concat(list).ToList();
+                }
+                productAnalysisDataGridView.DataSource = list;
+                productAnalysisDataGridView.Update();
+                productAnalysisDataGridView.Refresh();
+            }
+        }
+
+        private void buttonPriceUncompetitive_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(0);
+        }
+
+        private void buttonShortOfStock_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(1);
+        }
+
+        private void buttonRevenueDropping_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(2);
+        }
+
+        private void buttonConversionDropping_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(3);
+        }
+
+        private void buttonNotSelling_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(4);
+        }
+
+        private void payAmountlDataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = payAmountlDataGridView.Columns[e.ColumnIndex];
+            DataGridViewColumn oldColumn = payAmountlDataGridView.SortedColumn;
+            ListSortDirection direction;
+
+            // If oldColumn is null, then the DataGridView is not sorted.
+            if (oldColumn != null)
+            {
+                // Sort the same column again, reversing the SortOrder.
+                if (oldColumn == newColumn &&
+                    payAmountlDataGridView.SortOrder == SortOrder.Ascending)
+                {
+                    direction = ListSortDirection.Descending;
+                }
+                else
+                {
+                    // Sort a new column and remove the old SortGlyph.
+                    direction = ListSortDirection.Ascending;
+                    oldColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+                }
+            }
+            else
+            {
+                direction = ListSortDirection.Ascending;
+            }
+
+            // Sort the selected column.
+            payAmountlDataGridView.Sort(newColumn, direction);
+            newColumn.HeaderCell.SortGlyphDirection =
+                direction == ListSortDirection.Ascending ?
+                SortOrder.Ascending : SortOrder.Descending;
+        }
+
+        private void payAmountlDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            // Put each of the columns into programmatic sort mode.
+            foreach (DataGridViewColumn column in payAmountlDataGridView.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.Programmatic;
             }
