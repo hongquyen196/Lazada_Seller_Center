@@ -13,6 +13,7 @@ using System.Linq;
 using System.Drawing;
 using System.Threading;
 using System.Globalization;
+using System.Web;
 
 namespace SellerCenterLazada
 {
@@ -386,7 +387,10 @@ namespace SellerCenterLazada
 
         private void tabControl2_Selected(object sender, TabControlEventArgs e)
         {
-
+            if (e.TabPageIndex == 2)
+            {
+                get(0);
+            }
         }
         int buttonSaved = 1;
         void get(int button, int pageNum = 1)
@@ -422,9 +426,9 @@ namespace SellerCenterLazada
                     dateRange = DateTime.Parse(commDate.data.updateMonth).AddDays(-30).ToString("yyyy-MM-dd") + "%7C" + commDate.data.updateMonth;
                     break;
             }
-            int tab = tabControl2.SelectedIndex;
             List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
             ProductSalesAnalysis productSalesAnalysis = null;
+            int tab = tabControl2.SelectedIndex;
             switch (tab)
             {
                 case 0:
@@ -442,22 +446,22 @@ namespace SellerCenterLazada
                         {
                             ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
                             //model.numId = ++num;
-                            model.skuId = p.skuId.value + "";
+                            model.skuId = p.skuId.value.ToString();
                             model.image = p.image.value;
-                            model.productName = p.productName.value;
-                            model.uvValue = p.payAmount.value + "";
-                            model.uvCycleCrc = p.payAmount.cycleCrc != null ? p.payAmount.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "-";
+                            model.productName = HttpUtility.HtmlDecode(p.productName.value);
+                            model.uvValue = p.payAmount.value.ToString("#,###");
+                            model.uvCycleCrc = p.payAmount.cycleCrc != null ? p.payAmount.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
                             list.Add(model);
                         });
+                        if (pageNum > 1)
+                        {
+                            List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)payAmountlDataGridView.DataSource;
+                            list = listConcat.Concat(list).ToList();
+                        }
+                        payAmountlDataGridView.DataSource = list;
+                        payAmountlDataGridView.Update();
+                        payAmountlDataGridView.Refresh();
                     }
-                    if (pageNum > 1)
-                    {
-                        List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)payAmountlDataGridView.DataSource;
-                        list = listConcat.Concat(list).ToList();
-                    }
-                    payAmountlDataGridView.DataSource = list;
-                    payAmountlDataGridView.Update();
-                    payAmountlDataGridView.Refresh();
                     break;
                 case 1:
                     indexCode = "uv";
@@ -474,22 +478,33 @@ namespace SellerCenterLazada
                         {
                             ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
                             //model.numId = ++num;
-                            model.skuId = p.skuId.value + "";
+                            model.skuId = p.skuId.value.ToString();
                             model.image = p.image.value;
-                            model.productName = p.productName.value;
-                            model.uvValue = p.uv.value + "";
-                            model.uvCycleCrc = p.uv.cycleCrc != null ? p.uv.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "-";
+                            model.productName = HttpUtility.HtmlDecode(p.productName.value);
+                            model.uvValue = p.uv.value.ToString();
+                            model.uvCycleCrc = p.uv.cycleCrc != null ? p.uv.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
                             list.Add(model);
                         });
+                        if (pageNum > 1)
+                        {
+                            List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)uvGridView.DataSource;
+                            list = listConcat.Concat(list).ToList();
+                        }
+                        uvGridView.DataSource = list;
+                        uvGridView.Update();
+                        uvGridView.Refresh();
                     }
-                    if (pageNum > 1)
+                    break;
+                case 2:
+                    AnalysisOverview analysisOverview = APIHelper.GetAnalysisOverview(dateType, dateRange);
+                    if (analysisOverview.code == 0 && analysisOverview.data != null)
                     {
-                        List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)uvGridView.DataSource;
-                        list = listConcat.Concat(list).ToList();
+                        buttonShortOfStock.Text = string.Format(buttonShortOfStock.Text, analysisOverview.data.shortOfStock.value);
+                        buttonConversionDropping.Text = string.Format(buttonConversionDropping.Text, analysisOverview.data.conversionDropping.value);
+                        buttonRevenueDropping.Text = string.Format(buttonRevenueDropping.Text, analysisOverview.data.revenueDropping.value);
+                        buttonNotSelling.Text = string.Format(buttonNotSelling.Text, analysisOverview.data.notSelling.value);
+                        buttonPriceUncompetitive.Text = string.Format(buttonPriceUncompetitive.Text, analysisOverview.data.priceUncompetitive.value);
                     }
-                    uvGridView.DataSource = list;
-                    uvGridView.Update();
-                    uvGridView.Refresh();
                     break;
             }
         }
@@ -544,32 +559,124 @@ namespace SellerCenterLazada
 
         private void payAmountlDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            var grid = sender as DataGridView;
-            var rowIdx = (e.RowIndex + 1).ToString();
-            var centerFormat = new StringFormat()
-            {
-                // right alignment might actually make more sense for numbers
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
+            //var grid = sender as DataGridView;
+            //var rowIdx = (e.RowIndex + 1).ToString();
+            //var centerFormat = new StringFormat()
+            //{
+            //    // right alignment might actually make more sense for numbers
+            //    Alignment = StringAlignment.Center,
+            //    LineAlignment = StringAlignment.Center
+            //};
 
-            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+            //var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            //e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
         private void uvGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            var grid = sender as DataGridView;
-            var rowIdx = (e.RowIndex + 1).ToString();
-            var centerFormat = new StringFormat()
-            {
-                // right alignment might actually make more sense for numbers
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
+            //var grid = sender as DataGridView;
+            //var rowIdx = (e.RowIndex + 1).ToString();
+            //var centerFormat = new StringFormat()
+            //{
+            //    // right alignment might actually make more sense for numbers
+            //    Alignment = StringAlignment.Center,
+            //    LineAlignment = StringAlignment.Center
+            //};
 
-            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+            //var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            //e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
+        void getProductAnalysis(int button = 0, int pageNum = 1)
+        {
+            string dateType = "";
+            switch (button)
+            {
+                case 0:
+                    dateType = "priceUncompetitive";
+                    break;
+                case 1:
+                    dateType = "shortOfStock";
+                    break;
+                case 2:
+                    dateType = "revenueDropping";
+                    break;
+                case 3:
+                    dateType = "conversionDropping";
+                    break;
+                case 4:
+                    dateType = "notSelling";
+                    break;
+            }
+            List<ProductSalesAnalysisModel> list = new List<ProductSalesAnalysisModel>();
+            var productAnalysis = APIHelper.GetProductAnalysis(100, pageNum, dateType);
+            if (productAnalysis.code == 0 && productAnalysis.data != null)
+            {
+                productAnalysis.data.ForEach(p =>
+                {
+                    ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
+                    model.skuId = p.skuId.value.ToString();
+                    model.image = p.image.value;
+                    model.productName = HttpUtility.HtmlDecode(p.productName.value);
+                    switch (button)
+                    {
+                        case 0:
+                            model.uvValue = p.skuPrice?.value.ToString("#,###");
+                            model.uvCycleCrc = p.competiterLowestPrice?.value.ToString("#,###");
+                            break;
+                        case 1:
+                            model.uvValue = p.avgPayQuantity30d?.value.ToString();
+                            model.uvCycleCrc = p.stockCnt1d?.value.ToString();
+                            break;
+                        case 2:
+                            model.uvValue = p.crtOrdAmt7d?.value.ToString("#,###");
+                            model.uvCycleCrc = p.lastCycleRevenue7d?.value.ToString("#,###");
+                            break;
+                        case 3:
+                            model.uvValue =  p.avgConversion7d?.value?.ToString("P", CultureInfo.InvariantCulture);
+                            model.uvCycleCrc = p.lowConversionGap?.value?.ToString("P", CultureInfo.InvariantCulture);
+                            break;
+                        case 4:
+                            model.uvValue = p.lastCycleByr7d?.value.ToString();
+                            model.uvCycleCrc = p.uv7d?.value.ToString();
+                            break;
+                    }
+                    list.Add(model);
+                });
+                if (pageNum > 1)
+                {
+                    List<ProductSalesAnalysisModel> listConcat = (List<ProductSalesAnalysisModel>)productAnalysisDataGridView.DataSource;
+                    list = listConcat.Concat(list).ToList();
+                }
+                productAnalysisDataGridView.DataSource = list;
+                productAnalysisDataGridView.Update();
+                productAnalysisDataGridView.Refresh();
+            }
+        }
+
+        private void buttonPriceUncompetitive_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(0);
+        }
+
+        private void buttonShortOfStock_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(1);
+        }
+
+        private void buttonRevenueDropping_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(2);
+        }
+
+        private void buttonConversionDropping_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(3);
+        }
+
+        private void buttonNotSelling_Click(object sender, EventArgs e)
+        {
+            getProductAnalysis(4);
         }
     }
 

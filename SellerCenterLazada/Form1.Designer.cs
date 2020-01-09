@@ -45,6 +45,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.payAmountlDataGridView = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.uvGridView = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -62,7 +63,12 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.payAmountlDataGridView = new System.Windows.Forms.DataGridView();
+            this.buttonPriceUncompetitive = new System.Windows.Forms.Button();
+            this.buttonShortOfStock = new System.Windows.Forms.Button();
+            this.buttonRevenueDropping = new System.Windows.Forms.Button();
+            this.buttonConversionDropping = new System.Windows.Forms.Button();
+            this.buttonNotSelling = new System.Windows.Forms.Button();
+            this.productAnalysisDataGridView = new System.Windows.Forms.DataGridView();
             this.priceFormattedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.discountPriceFormattedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,17 +98,24 @@
             this.cookieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userLoginBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListDataGridView)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.payAmountlDataGridView)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uvGridView)).BeginInit();
+            this.tabPage5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.payAmountlDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productAnalysisDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productSalesAnalysisModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLoginBindingSource)).BeginInit();
@@ -296,6 +309,24 @@
             this.tabPage3.Text = "Theo doanh thu";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // payAmountlDataGridView
+            // 
+            this.payAmountlDataGridView.AutoGenerateColumns = false;
+            this.payAmountlDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.payAmountlDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.skuIdDataGridViewTextBoxColumn1,
+            this.imageDataGridViewTextBoxColumn1,
+            this.productNameDataGridViewTextBoxColumn1,
+            this.uvValueDataGridViewTextBoxColumn1,
+            this.uvCycleCrcDataGridViewTextBoxColumn1});
+            this.payAmountlDataGridView.DataSource = this.productSalesAnalysisModelBindingSource;
+            this.payAmountlDataGridView.Location = new System.Drawing.Point(6, 6);
+            this.payAmountlDataGridView.Name = "payAmountlDataGridView";
+            this.payAmountlDataGridView.Size = new System.Drawing.Size(1022, 371);
+            this.payAmountlDataGridView.TabIndex = 0;
+            this.payAmountlDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.payAmountlDataGridView_RowPostPaint);
+            this.payAmountlDataGridView.Scroll += new System.Windows.Forms.ScrollEventHandler(this.payAmountlDataGridView_Scroll);
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.uvGridView);
@@ -329,6 +360,13 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.AutoScroll = true;
+            this.tabPage5.Controls.Add(this.productAnalysisDataGridView);
+            this.tabPage5.Controls.Add(this.buttonConversionDropping);
+            this.tabPage5.Controls.Add(this.buttonShortOfStock);
+            this.tabPage5.Controls.Add(this.buttonNotSelling);
+            this.tabPage5.Controls.Add(this.buttonRevenueDropping);
+            this.tabPage5.Controls.Add(this.buttonPriceUncompetitive);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -462,23 +500,71 @@
             this.dataGridViewTextBoxColumn3.HeaderText = "createdTimestamp";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
-            // payAmountlDataGridView
+            // buttonPriceUncompetitive
             // 
-            this.payAmountlDataGridView.AutoGenerateColumns = false;
-            this.payAmountlDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.payAmountlDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.skuIdDataGridViewTextBoxColumn1,
-            this.imageDataGridViewTextBoxColumn1,
-            this.productNameDataGridViewTextBoxColumn1,
-            this.uvValueDataGridViewTextBoxColumn1,
-            this.uvCycleCrcDataGridViewTextBoxColumn1});
-            this.payAmountlDataGridView.DataSource = this.productSalesAnalysisModelBindingSource;
-            this.payAmountlDataGridView.Location = new System.Drawing.Point(6, 6);
-            this.payAmountlDataGridView.Name = "payAmountlDataGridView";
-            this.payAmountlDataGridView.Size = new System.Drawing.Size(1022, 371);
-            this.payAmountlDataGridView.TabIndex = 0;
-            this.payAmountlDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.payAmountlDataGridView_RowPostPaint);
-            this.payAmountlDataGridView.Scroll += new System.Windows.Forms.ScrollEventHandler(this.payAmountlDataGridView_Scroll);
+            this.buttonPriceUncompetitive.Location = new System.Drawing.Point(12, 6);
+            this.buttonPriceUncompetitive.Name = "buttonPriceUncompetitive";
+            this.buttonPriceUncompetitive.Size = new System.Drawing.Size(268, 23);
+            this.buttonPriceUncompetitive.TabIndex = 0;
+            this.buttonPriceUncompetitive.Text = "Giá sản phẩm không cạnh tranh ({0})";
+            this.buttonPriceUncompetitive.UseVisualStyleBackColor = true;
+            this.buttonPriceUncompetitive.Click += new System.EventHandler(this.buttonPriceUncompetitive_Click);
+            // 
+            // buttonShortOfStock
+            // 
+            this.buttonShortOfStock.Location = new System.Drawing.Point(286, 6);
+            this.buttonShortOfStock.Name = "buttonShortOfStock";
+            this.buttonShortOfStock.Size = new System.Drawing.Size(167, 23);
+            this.buttonShortOfStock.TabIndex = 0;
+            this.buttonShortOfStock.Text = "Sắp hết hàng ({0})";
+            this.buttonShortOfStock.UseVisualStyleBackColor = true;
+            this.buttonShortOfStock.Click += new System.EventHandler(this.buttonShortOfStock_Click);
+            // 
+            // buttonRevenueDropping
+            // 
+            this.buttonRevenueDropping.Location = new System.Drawing.Point(459, 6);
+            this.buttonRevenueDropping.Name = "buttonRevenueDropping";
+            this.buttonRevenueDropping.Size = new System.Drawing.Size(171, 23);
+            this.buttonRevenueDropping.TabIndex = 0;
+            this.buttonRevenueDropping.Text = "Doanh số giảm ({0})";
+            this.buttonRevenueDropping.UseVisualStyleBackColor = true;
+            this.buttonRevenueDropping.Click += new System.EventHandler(this.buttonRevenueDropping_Click);
+            // 
+            // buttonConversionDropping
+            // 
+            this.buttonConversionDropping.Location = new System.Drawing.Point(636, 6);
+            this.buttonConversionDropping.Name = "buttonConversionDropping";
+            this.buttonConversionDropping.Size = new System.Drawing.Size(203, 23);
+            this.buttonConversionDropping.TabIndex = 0;
+            this.buttonConversionDropping.Text = "Tỉ lệ mua hàng thấp ({0})";
+            this.buttonConversionDropping.UseVisualStyleBackColor = true;
+            this.buttonConversionDropping.Click += new System.EventHandler(this.buttonConversionDropping_Click);
+            // 
+            // buttonNotSelling
+            // 
+            this.buttonNotSelling.Location = new System.Drawing.Point(845, 6);
+            this.buttonNotSelling.Name = "buttonNotSelling";
+            this.buttonNotSelling.Size = new System.Drawing.Size(200, 23);
+            this.buttonNotSelling.TabIndex = 0;
+            this.buttonNotSelling.Text = "Không có doanh số ({0})";
+            this.buttonNotSelling.UseVisualStyleBackColor = true;
+            this.buttonNotSelling.Click += new System.EventHandler(this.buttonNotSelling_Click);
+            // 
+            // productAnalysisDataGridView
+            // 
+            this.productAnalysisDataGridView.AutoGenerateColumns = false;
+            this.productAnalysisDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.productAnalysisDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9});
+            this.productAnalysisDataGridView.DataSource = this.productSalesAnalysisModelBindingSource;
+            this.productAnalysisDataGridView.Location = new System.Drawing.Point(12, 35);
+            this.productAnalysisDataGridView.Name = "productAnalysisDataGridView";
+            this.productAnalysisDataGridView.Size = new System.Drawing.Size(1033, 339);
+            this.productAnalysisDataGridView.TabIndex = 5;
             // 
             // priceFormattedDataGridViewTextBoxColumn
             // 
@@ -648,6 +734,36 @@
             // 
             this.userLoginBindingSource.DataSource = typeof(SellerCenterLazada.Models.UserLogin);
             // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "skuId";
+            this.dataGridViewTextBoxColumn5.HeaderText = "skuId";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "image";
+            this.dataGridViewTextBoxColumn6.HeaderText = "image";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "productName";
+            this.dataGridViewTextBoxColumn7.HeaderText = "productName";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "uvValue";
+            this.dataGridViewTextBoxColumn8.HeaderText = "uvValue";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "uvCycleCrc";
+            this.dataGridViewTextBoxColumn9.HeaderText = "uvCycleCrc";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -666,12 +782,14 @@
             this.tabPage2.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.payAmountlDataGridView)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uvGridView)).EndInit();
+            this.tabPage5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.payAmountlDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productAnalysisDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productSalesAnalysisModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLoginBindingSource)).EndInit();
@@ -744,6 +862,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn uvValueDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn uvCycleCrcDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button buttonConversionDropping;
+        private System.Windows.Forms.Button buttonShortOfStock;
+        private System.Windows.Forms.Button buttonNotSelling;
+        private System.Windows.Forms.Button buttonRevenueDropping;
+        private System.Windows.Forms.Button buttonPriceUncompetitive;
+        private System.Windows.Forms.DataGridView productAnalysisDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
     }
 }
 

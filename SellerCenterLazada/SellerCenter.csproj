@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="Helpers\APIHelper.cs" />
     <Compile Include="Helpers\CryptoHelper.cs" />
+    <Compile Include="Models\AnalysisOverview.cs" />
     <Compile Include="Models\CommonDate.cs" />
     <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\ProductInfoVo.cs" />

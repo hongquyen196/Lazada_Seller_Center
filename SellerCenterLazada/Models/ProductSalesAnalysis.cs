@@ -86,6 +86,84 @@ namespace SellerCenterLazada.Models
         public string message { get; set; }
     }
 
+    //ProductAnalysis
+
+    public class CompetiterLowestPrice
+    {
+        public double value { get; set; }
+    }
+
+    public class SkuPrice
+    {
+        public double value { get; set; }
+    }
+
+    public class AvgPayQuantity30d
+    {
+        public int value { get; set; }
+    }
+
+    public class StockCnt1d
+    {
+        public int value { get; set; }
+    }
+
+    public class CrtOrdAmt7d
+    {
+        public double value { get; set; }
+    }
+
+    public class LastCycleRevenue7d
+    {
+        public double value { get; set; }
+    }
+
+    public class AvgConversion7d
+    {
+        public double? value { get; set; }
+    }
+
+    public class LowConversionGap
+    {
+        public double? value { get; set; }
+    }
+
+    public class LastCycleByr7d
+    {
+        public int value { get; set; }
+    }
+
+    public class Uv7d
+    {
+        public int value { get; set; }
+    }
+
+    public class DatumPa
+    {
+        public SkuId skuId { get; set; }
+        public Image image { get; set; }
+        public ProductName productName { get; set; }
+        public CompetiterLowestPrice competiterLowestPrice { get; set; }
+        public SkuPrice skuPrice { get; set; }
+        public AvgConversion7d avgConversion7d { get; set; }
+        public LowConversionGap lowConversionGap { get; set; }
+        public CrtOrdAmt7d crtOrdAmt7d { get; set; }
+        public LastCycleRevenue7d lastCycleRevenue7d { get; set; }
+        public AvgPayQuantity30d avgPayQuantity30d { get; set; }
+        public StockCnt1d stockCnt1d { get; set; }       
+        public LastCycleByr7d lastCycleByr7d { get; set; }
+        public Uv7d uv7d { get; set; }
+    }
+
+    public class ProductAnalysis
+    {
+        public string traceId { get; set; }
+        public int code { get; set; }
+        public string message { get; set; }
+        public List<DatumPa> data { get; set; }
+    }
+
+
     public class ProductSalesAnalysisModel
     {
         public int numId { get; set; }
