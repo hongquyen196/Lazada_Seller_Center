@@ -25,6 +25,7 @@ namespace SellerCenterLazada
         DateTimePicker dtp = new DateTimePicker();
         Rectangle rectangle;
         private bool IsClosed = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +37,13 @@ namespace SellerCenterLazada
             dtp.TextChanged += new EventHandler(dtp_TextChange);
             productInfoVoListDataGridView.ColumnWidthChanged += ProductInfoVoListDataGridView_ColumnWidthChanged;
             productInfoVoListDataGridView.Scroll += ProductInfoVoListDataGridView_Scroll;
+            GetSellerAccount();
+        }
+
+        void GetSellerAccount()
+        {
+            var result = _accountRepository.GetSellerAccounts(FormLicense.LicenseId);
+            userLoginBindingSource.DataSource = result?.Select(item => new UserLogin(item.Account, CryptoHelper.Decrypt(item.Password), item.Name, "", ""));
         }
 
         private void ProductInfoVoListDataGridView_Scroll(object sender, ScrollEventArgs e)
@@ -156,7 +164,7 @@ namespace SellerCenterLazada
                 dataGridView1.Refresh();
                 button2.Enabled = true;
                 tabControl1.Enabled = true;
-                _accountRepository.AddSellerAccount(sellerAccounts);
+                _accountRepository.AddSellerAccount(sellerAccounts, FormLicense.LicenseId);
                 InsertAllProductInfo(sellerAccounts);
             }).Start();
         }
@@ -257,7 +265,7 @@ namespace SellerCenterLazada
                                             _accountRepository.AddSellerAccount(new List<SellerAccount>
                                             {
                                                 account
-                                            });
+                                            }, FormLicense.LicenseId);
                                         }
                                     }
                                     else
@@ -552,7 +560,10 @@ namespace SellerCenterLazada
             var grid = sender as DataGridView;
             if (grid.DisplayedRowCount(false) + grid.FirstDisplayedScrollingRowIndex >= grid.RowCount)
             {
-                get(buttonSaved, ++countPageNum);
+                //new Task(() =>
+               // {
+                    get(buttonSaved, ++countPageNum);
+                //}).Start();
             }
         }
 
@@ -729,8 +740,8 @@ namespace SellerCenterLazada
                 direction = ListSortDirection.Ascending;
             }
 
-            // Sort the selected column.
-            payAmountlDataGridView.Sort(newColumn, direction);
+            // Sort the selected column
+           // payAmountlDataGridView.Sort(newColumn, direction);
             newColumn.HeaderCell.SortGlyphDirection =
                 direction == ListSortDirection.Ascending ?
                 SortOrder.Ascending : SortOrder.Descending;
@@ -743,6 +754,11 @@ namespace SellerCenterLazada
             {
                 column.SortMode = DataGridViewColumnSortMode.Programmatic;
             }
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 

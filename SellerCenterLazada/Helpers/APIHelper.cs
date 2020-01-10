@@ -98,7 +98,7 @@ namespace SellerCenterLazada
                 {
                     var data = Get(string.Format(PRODUCTS_URL, 20, page));
                     productInfo = JsonConvert.DeserializeObject<ProductInfoVo>(data);
-                    productInfoVos1 = productInfo.result.productInfoVoList.FindAll(p => p.feedStatus == 0);
+                    productInfoVos1 = productInfo.result.productInfoVoList.FindAll(p => p.feedStatus != 0);
                     productInfoVos.AddRange(productInfoVos1);
                     if (productInfo.result.productInfoVoList.Count < 20)
                     {

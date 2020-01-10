@@ -7,6 +7,7 @@ namespace SellerCenterLazada.Models
 {
     public class ProductInfoVoList
     {
+        public string imageUrlString => "https:" + imageUrl;
         public string imageUrl { get; set; }
         public string priceFormatted { get; set; }
         public string discountPriceFormatted { get; set; }
