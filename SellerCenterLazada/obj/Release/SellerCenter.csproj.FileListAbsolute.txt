@@ -12,3 +12,4 @@ E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenter.csproj.Genera
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenter.csproj.CopyComplete
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenterLazada.exe
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenterLazada.pdb
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Release\SellerCenterLazada.License.resources

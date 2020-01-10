@@ -102,9 +102,9 @@
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
@@ -161,6 +161,7 @@
             this.button5.TabIndex = 25;
             this.button5.Text = "Hẹn giờ và đăng dạo";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // labelStatus
             // 
@@ -203,6 +204,7 @@
             this.productInfoVoListDataGridView.Name = "productInfoVoListDataGridView";
             this.productInfoVoListDataGridView.Size = new System.Drawing.Size(1071, 320);
             this.productInfoVoListDataGridView.TabIndex = 22;
+            this.productInfoVoListDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.productInfoVoListDataGridView_CellClick);
             // 
             // QueueDate
             // 
@@ -697,6 +699,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(897, 151);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // usernameDataGridViewTextBoxColumn
             // 
@@ -787,17 +790,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "createdTimestamp";
-            this.dataGridViewTextBoxColumn2.HeaderText = "createdTimestamp";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "createdTimestamp";
             this.dataGridViewTextBoxColumn1.HeaderText = "createdTimestamp";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "createdTimestamp";
+            this.dataGridViewTextBoxColumn2.HeaderText = "createdTimestamp";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // dataGridViewTextBoxColumn3
             // 

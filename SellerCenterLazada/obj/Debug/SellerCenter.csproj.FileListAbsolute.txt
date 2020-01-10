@@ -11,3 +11,5 @@ E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenter.csproj.Generate
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenter.csproj.CopyComplete
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenterLazada.exe
 E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenterLazada.pdb
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenter.csprojAssemblyReference.cache
+E:\VLANCE\SellerCenter\SellerCenterLazada\obj\Debug\SellerCenterLazada.License.resources
