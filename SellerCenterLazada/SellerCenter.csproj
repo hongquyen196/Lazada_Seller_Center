@@ -42,14 +42,23 @@
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04" />
     <Reference Include="DevComponents.Instrumentation, Version=14.1.0.18, Culture=neutral, PublicKeyToken=f90dc37c26666a67" />
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -87,6 +96,7 @@
     </Compile>
     <Compile Include="Helpers\APIHelper.cs" />
     <Compile Include="Helpers\CryptoHelper.cs" />
+    <Compile Include="Helpers\ExportExcelHelper.cs" />
     <Compile Include="Helpers\HardDiskHelper.cs" />
     <Compile Include="Models\AnalysisOverview.cs" />
     <Compile Include="Models\CommonDate.cs" />

@@ -15,16 +15,22 @@ namespace SellerCenterLazada
     public partial class FormLicense : Form
     {
         public static int LicenseId;
+        private BaseRepository _baseRepository = new BaseRepository();
         public FormLicense()
         {
             InitializeComponent();
+            if(!_baseRepository.CheckSqlConnect())
+            {
+                MessageBox.Show("Kết nối đến server bị lỗi!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            } 
             var key = HardDiskHelper.GenerateKey();
             textBox2.Text = key;
             LicenseId = new LicenseRepository().CheckLicense(key);
             if (!0.Equals(LicenseId))
             {
                 this.Hide();
-                Form form = new Form1();
+                Form form = new Form2(this);
                 form.ShowDialog();
                 this.Close();
             }

@@ -170,9 +170,9 @@ namespace SellerCenterLazada.Models
         public string sellerSKU { get; set; }
         public string image { get; set; }
         public string productName { get; set; }
-        public string uvValue { get; set; }
-        public string uvCycleCrc { get; set; }
+        public double? uvValue { get; set; }
+        public double? uvCycleCrc { get; set; }
         public string link { get; set; }
-
+        public double? uvCycleCrcValue { get; set; }
     }
 }

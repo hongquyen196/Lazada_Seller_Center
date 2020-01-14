@@ -24,6 +24,7 @@ namespace SellerCenterLazada.Models
         public long stock { get; set; }
         public DateTime? QueueDate { get; set; }
         public List<long> categories { get; set; }
+        public string Account { get; set; }
     }
 
     public class PageInfo

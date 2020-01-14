@@ -1,19 +1,19 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using SellerCenterLazada.Models;
-using System;
-using System.Windows.Forms;
-using System.Data;
-using System.ComponentModel;
-using System.IO;
-using SellerCenterLazada.Repositories;
 using SellerCenterLazada.Helpers;
-using System.Threading.Tasks;
-using System.Linq;
+using SellerCenterLazada.Models;
+using SellerCenterLazada.Repositories;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.Threading;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
+using System.Windows.Forms;
 
 namespace SellerCenterLazada
 {
@@ -125,7 +125,6 @@ namespace SellerCenterLazada
                             string username = a[0];
                             string password = a[1];
                             userLoginBindingSource.Add(new UserLogin(username, password));
-
                         }
                     }
                 }
@@ -461,8 +460,8 @@ namespace SellerCenterLazada
                             model.sellerSKU = p.sellerSKU.value.ToString();
                             model.image = p.image.value;
                             model.productName = HttpUtility.HtmlDecode(p.productName.value);
-                            model.uvValue = p.payAmount.value.ToString("#,###");
-                            model.uvCycleCrc = p.payAmount.cycleCrc != null ? p.payAmount.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
+                            model.uvValue = p.payAmount.value;
+                            model.uvCycleCrc = p.payAmount.cycleCrc ;
                             model.link = "https://www.lazada.vn/products/" + p.link.value;
                             list.Add(model);
                         });
@@ -496,8 +495,8 @@ namespace SellerCenterLazada
                             model.sellerSKU = p.sellerSKU.value.ToString();
                             model.image = p.image.value;
                             model.productName = HttpUtility.HtmlDecode(p.productName.value);
-                            model.uvValue = p.uv.value.ToString();
-                            model.uvCycleCrc = p.uv.cycleCrc != null ? p.uv.cycleCrc?.ToString("P", CultureInfo.InvariantCulture) : "";
+                            model.uvValue = p.uv.value;
+                            model.uvCycleCrc = p.uv.cycleCrc;
                             model.link = "https://www.lazada.vn/products/" + p.link.value;
                             list.Add(model);
                         });
@@ -561,8 +560,8 @@ namespace SellerCenterLazada
             if (grid.DisplayedRowCount(false) + grid.FirstDisplayedScrollingRowIndex >= grid.RowCount)
             {
                 //new Task(() =>
-               // {
-                    get(buttonSaved, ++countPageNum);
+                // {
+                get(buttonSaved, ++countPageNum);
                 //}).Start();
             }
         }
@@ -654,24 +653,24 @@ namespace SellerCenterLazada
                     switch (button)
                     {
                         case 0:
-                            model.uvValue = p.skuPrice?.value.ToString("#,###");
-                            model.uvCycleCrc = p.competiterLowestPrice?.value.ToString("#,###");
+                            model.uvValue = p.skuPrice?.value;
+                            model.uvCycleCrc = p.competiterLowestPrice?.value;
                             break;
                         case 1:
-                            model.uvValue = p.avgPayQuantity30d?.value.ToString();
-                            model.uvCycleCrc = p.stockCnt1d?.value.ToString();
+                            model.uvValue = p.avgPayQuantity30d?.value;
+                            model.uvCycleCrc = p.stockCnt1d?.value;
                             break;
                         case 2:
-                            model.uvValue = p.crtOrdAmt7d?.value.ToString("#,###");
-                            model.uvCycleCrc = p.lastCycleRevenue7d?.value.ToString("#,###");
+                            model.uvValue = p.crtOrdAmt7d?.value;
+                            model.uvCycleCrc = p.lastCycleRevenue7d?.value;
                             break;
                         case 3:
-                            model.uvValue =  p.avgConversion7d?.value?.ToString("P", CultureInfo.InvariantCulture);
-                            model.uvCycleCrc = p.lowConversionGap?.value?.ToString("P", CultureInfo.InvariantCulture);
+                            model.uvValue = p.avgConversion7d?.value;
+                            model.uvCycleCrc = p.lowConversionGap?.value;
                             break;
                         case 4:
-                            model.uvValue = p.lastCycleByr7d?.value.ToString();
-                            model.uvCycleCrc = p.uv7d?.value.ToString();
+                            model.uvValue = p.lastCycleByr7d?.value;
+                            model.uvCycleCrc = p.uv7d?.value;
                             break;
                     }
                     model.link = "https://www.lazada.vn/products/" + p.link.value;
@@ -741,7 +740,7 @@ namespace SellerCenterLazada
             }
 
             // Sort the selected column
-           // payAmountlDataGridView.Sort(newColumn, direction);
+            // payAmountlDataGridView.Sort(newColumn, direction);
             newColumn.HeaderCell.SortGlyphDirection =
                 direction == ListSortDirection.Ascending ?
                 SortOrder.Ascending : SortOrder.Descending;

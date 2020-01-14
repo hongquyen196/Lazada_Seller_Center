@@ -12,5 +12,21 @@ namespace SellerCenterLazada.Repositories
         {
             return new SqlConnection(CryptoHelper.Decrypt(connectString));
         }
+
+        public bool CheckSqlConnect()
+        {
+            try
+            {
+                using(var connection = GetSqlConnection())
+                {
+                    connection.Open();
+                    return true;
+                }
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
     }
 }
