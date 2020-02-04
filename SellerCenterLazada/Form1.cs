@@ -181,7 +181,7 @@ namespace SellerCenterLazada
                 currentUser = (dgv.Rows[e.RowIndex].Cells[0].FormattedValue).ToString();
                 APIHelper.cookie = dgv.Rows[e.RowIndex].Cells[3].FormattedValue.ToString();
                 Console.WriteLine(APIHelper.cookie);
-                productInfoVoListBindingSource.DataSource = APIHelper.GetProductInfoVoList();
+                productInfoVoListBindingSource.DataSource = APIHelper.GetShopNewArrivalProducts();
                 productInfoVoListDataGridView.Update();
                 productInfoVoListDataGridView.Refresh();
                 button5.Enabled = true;
@@ -198,7 +198,7 @@ namespace SellerCenterLazada
                     APIHelper.cookie = item.Cookie;
                     Console.WriteLine(APIHelper.cookie);
                     sellerProductInfo.AddRange(
-                        APIHelper.GetProductInfoVoList().Select(p => new SellerProductInfo
+                        APIHelper.GetShopNewArrivalProducts().Select(p => new SellerProductInfo
                         {
                             SkuId = p.skuId,
                             SellerAccount = item.Account,

@@ -38,10 +38,18 @@
     <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.DotNetBar.Layout, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
-    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
-    <Reference Include="DevComponents.DotNetBar2, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04" />
-    <Reference Include="DevComponents.Instrumentation, Version=14.1.0.18, Culture=neutral, PublicKeyToken=f90dc37c26666a67" />
+    <Reference Include="DevComponents.DotNetBar.Layout, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=14.1.0.18, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevComponents.Instrumentation, Version=14.1.0.18, Culture=neutral, PublicKeyToken=f90dc37c26666a67">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
     </Reference>
@@ -100,11 +108,14 @@
     <Compile Include="Helpers\HardDiskHelper.cs" />
     <Compile Include="Models\AnalysisOverview.cs" />
     <Compile Include="Models\CommonDate.cs" />
+    <Compile Include="Models\FreeStyle.cs" />
     <Compile Include="Models\Feed.cs" />
-    <Compile Include="Models\ProductInfoVo.cs" />
+    <Compile Include="Models\GetVoucherList.cs" />
+    <Compile Include="Models\GetProductInfoVo.cs" />
     <Compile Include="Models\ProductSalesAnalysis.cs" />
     <Compile Include="Models\SellerAccount.cs" />
     <Compile Include="Models\SellerProductInfo.cs" />
+    <Compile Include="Models\ShopDetail.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Program.cs" />

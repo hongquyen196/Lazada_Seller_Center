@@ -15,8 +15,11 @@ namespace SellerCenterLazada
         const string LOGIN_URL = "https://m.sellercenter.lazada.vn/m/seller/login.html";
         const string COOKIE_URL = "https://uac.lazada.com/tbpass/jump?group=lazada-seller&target=" + LOGIN_URL;
         const string USER_INFO_URL = "https://m.sellercenter.lazada.vn/m/index/info";
+        const string SHOP_DETAIL_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.get.contentGenerator.getShopDetail";
         // Thông tin mới
-        const string PRODUCTS_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.get.contentGenerator.getShopNewArrivalProducts&pageSize={0}&pageNum={1}";
+        const string SHOP_NEW_ARRIVAL_PRODUCT_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.get.contentGenerator.getShopNewArrivalProducts&pageSize={0}&pageNum={1}";
+        // Phong cách tự do
+        const string SHOP_PRODUCT_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.get.contentGenerator.searchShopProducts&pageSize={0}&pageNum={1}";
         // Mã giảm giá
         const string VOUCHERS_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.get.contentGenerator.getVoucherList&ua=&umid=";
         // Deal nổi bật
@@ -24,9 +27,13 @@ namespace SellerCenterLazada
         const string CAMPAIGN_PRODUCTS_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.get.contentGenerator.getCampaignProducts&pageSize=20&pageNum=1&campaignId={0}";
         // Ảnh từ khách hàng
         const string REVIEWS_CUSTOMER_URL = "https://sellercenter.lazada.vn/asc-review/product-reviews/getList?pageSize=10&pageNo=1&contentType=with_images&productName=&orderNumber=&sellerSku=&shopSku=&fromDate=&toDate=&replyState=&rating=5&sourceAppName=&isExternal=false";
-        // Đăng dạo
+        // Đăng dạo Phong cách tự do
+        const string CREATE_FREE_STYLE = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.post.contentGenerator.createFreeStyle";
+        // Đăng dạo Thông tin mới
         // const string CHECK_FEED_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.post.contentGenerator.checkFeedDesc";
         const string CREATE_FEED_URL = "https://nest.sellercenter.lazada.vn/api/gateway?__gateway_method_id=api.post.contentGenerator.createFeed";
+
+
         // Đăng dạo reviews
         //https://sellercenter.lazada.vn/asc-review/seller-manage-reviews/updateShareStatus , post data = "type=feed&reviewRateId=228442819291426&isActive=true"
         // Phân tích bán hàng nâng cao sản phẩm
@@ -37,6 +44,8 @@ namespace SellerCenterLazada
 
 
         public static string cookie = "";
+        public static int shopId;
+
         public static bool Login(string username, string password)
         {
             try
@@ -86,18 +95,31 @@ namespace SellerCenterLazada
                 return null;
             }
         }
-        public static List<ProductInfoVoList> GetProductInfoVoList()
+        public static ShopDetail GetShopDetail()
+        {
+            try
+            {
+                var data = Get(SHOP_DETAIL_URL);
+                return JsonConvert.DeserializeObject<ShopDetail>(data);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                return null;
+            }
+        }
+        public static List<ProductInfoVoList> GetShopNewArrivalProducts()
         {
             List<ProductInfoVoList> productInfoVos = new List<ProductInfoVoList>();
             try
             {
                 int page = 1;
-                ProductInfoVo productInfo = null;
+                GetProductInfoVo productInfo = null;
                 List<ProductInfoVoList> productInfoVos1 = null;
                 while (true)
                 {
-                    var data = Get(string.Format(PRODUCTS_URL, 20, page));
-                    productInfo = JsonConvert.DeserializeObject<ProductInfoVo>(data);
+                    var data = Get(string.Format(SHOP_NEW_ARRIVAL_PRODUCT_URL, 20, page));
+                    productInfo = JsonConvert.DeserializeObject<GetProductInfoVo>(data);
                     productInfoVos1 = productInfo.result.productInfoVoList.FindAll(p => p.feedStatus == 0);
                     productInfoVos.AddRange(productInfoVos1);
                     if (productInfo.result.productInfoVoList.Count < 20)
@@ -106,6 +128,25 @@ namespace SellerCenterLazada
                     }
                     page++;
                 }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+            }
+            return productInfoVos;
+        }
+
+        public static List<ProductInfoVoList> SearchShopProducts(int page = 1)
+        {
+            List<ProductInfoVoList> productInfoVos = new List<ProductInfoVoList>();
+            try
+            {
+                GetProductInfoVo productInfo = null;
+                List<ProductInfoVoList> productInfoVos1 = null;
+                var data = Get(string.Format(SHOP_PRODUCT_URL, 100, page));
+                productInfo = JsonConvert.DeserializeObject<GetProductInfoVo>(data);
+                productInfoVos1 = productInfo.result.productInfoVoList.FindAll(p => p.feedStatus == 0);
+                productInfoVos.AddRange(productInfoVos1);
             }
             catch (Exception e)
             {
@@ -129,7 +170,7 @@ namespace SellerCenterLazada
         {
             var data = Get(string.Format(PRODUCT_ANALYSIS_URL, pageSize, pageNum, indexCode));
             return JsonConvert.DeserializeObject<ProductAnalysis>(data);
-        }        
+        }
         public static AnalysisOverview GetAnalysisOverview(string dateType = "", string dateRange = "")
         {
             var data = Get(string.Format(ANALYSIS_OVERVIEW_URL, dateType, dateRange));
@@ -160,6 +201,29 @@ namespace SellerCenterLazada
                 feed.feedContent = feedContent;
                 feed.feedDesc = feedDesc;
                 var data = Post(CREATE_FEED_URL, JsonConvert.SerializeObject(feed));
+                return data;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                return null;
+            }
+        }
+        public static string CreateFreeStyle(ProductInfoVoList productInfoVo)
+        {
+            try
+            {
+                FreeStyle freeStyle = new FreeStyle();
+                freeStyle.freestyleObjects = new List<FreestyleObject>();
+                freeStyle.freestyleObjects.Add(new FreestyleObject(
+                    productInfoVo.skuId,
+                    productInfoVo.itemId,
+                    productInfoVo.imageUrl
+                ));
+                freeStyle.description = new Description();
+                freeStyle.description.vi_VN = "";
+                freeStyle.shopId = shopId;
+                var data = Post(CREATE_FREE_STYLE, JsonConvert.SerializeObject(freeStyle));
                 return data;
             }
             catch (Exception e)

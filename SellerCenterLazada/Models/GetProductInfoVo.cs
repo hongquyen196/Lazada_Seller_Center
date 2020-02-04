@@ -42,10 +42,9 @@ namespace SellerCenterLazada.Models
     {
         public List<ProductInfoVoList> productInfoVoList { get; set; }
         public PageInfo pageInfo { get; set; }
-        public string username { get; set; }
     }
 
-    public class ProductInfoVo
+    public class GetProductInfoVo
     {
         public long status { get; set; }
         public string message { get; set; }

@@ -37,11 +37,11 @@ namespace SellerCenterLazada
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txtAccount.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            if (string.IsNullOrWhiteSpace(txtAccount.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 MessageBox.Show("Thông tin đăng nhập không hợp lệ.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            } 
+            }
             userLoginBindingSource.Add(new UserLogin(txtAccount.Text, txtPassword.Text));
         }
 
@@ -80,7 +80,7 @@ namespace SellerCenterLazada
         {
             new Task(() =>
             {
-                UserInfo userInfo = null;
+                ShopDetail shopDetail = null;
                 var sellerAccounts = new List<SellerAccount>();
                 foreach (UserLogin userLogin in userLoginBindingSource)
                 {
@@ -88,9 +88,9 @@ namespace SellerCenterLazada
                     {
                         userLogin.status = "Đã đăng nhập";
                         userLogin.cookie = APIHelper.cookie;
-                        userInfo = APIHelper.GetUserInfo();
-                        userLogin.name = userInfo.seller.userName;
-
+                        shopDetail = APIHelper.GetShopDetail();
+                        userLogin.shopId = shopDetail.result.shopId;
+                        userLogin.name = shopDetail.result.shopName;
                         sellerAccounts.Add(new SellerAccount
                         {
                             Account = userLogin.username,
@@ -126,13 +126,14 @@ namespace SellerCenterLazada
             {
                 currentUser = userLogin.username;
                 APIHelper.cookie = userLogin.cookie;
-                lock (productInfoVoListBindingSource)
-                {
-                    var result = APIHelper.GetProductInfoVoList();
-                    result?.ForEach(item => item.Account = userLogin.username);
-                    productInfoVoListBindingSource.DataSource = result;
-                }
-                richTextBox1.AppendText("\r\nChuyển account thành công!");
+                APIHelper.shopId = userLogin.shopId;
+                //lock (productInfoVoListBindingSource)
+                //{
+                //    var result = APIHelper.GetShopNewArrivalProducts();
+                //    result?.ForEach(item => item.Account = userLogin.username);
+                //    productInfoVoListBindingSource.DataSource = result;
+                //}
+                richTextBox1.AppendText("\r\n>>>>>" + userLogin.username);
             }
             btnDangDao.Enabled = true;
         }
@@ -250,7 +251,7 @@ namespace SellerCenterLazada
                     APIHelper.cookie = item.Cookie;
                     Console.WriteLine(APIHelper.cookie);
                     sellerProductInfo.AddRange(
-                        APIHelper.GetProductInfoVoList().Select(p => new SellerProductInfo
+                        APIHelper.GetShopNewArrivalProducts().Select(p => new SellerProductInfo
                         {
                             SkuId = p.skuId,
                             SellerAccount = item.Account,
@@ -330,7 +331,7 @@ namespace SellerCenterLazada
                         {
                             ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
                             //model.numId = ++num;
-                            model.sellerSKU = p.sellerSKU.value.ToString();
+                            model.sellerSKU = HttpUtility.HtmlDecode(p.sellerSKU.value);
                             model.image = p.image.value;
                             model.productName = HttpUtility.HtmlDecode(p.productName.value);
                             model.uvValue = p.payAmount.value;
@@ -366,7 +367,7 @@ namespace SellerCenterLazada
                         productSalesAnalysis.data.data.ForEach(p =>
                         {
                             ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
-                            model.sellerSKU = p.sellerSKU.value.ToString();
+                            model.sellerSKU = HttpUtility.HtmlDecode(p.sellerSKU.value);
                             model.image = p.image.value;
                             model.productName = HttpUtility.HtmlDecode(p.productName.value);
                             model.uvValue = p.uv.value;
@@ -396,11 +397,11 @@ namespace SellerCenterLazada
                     break;
             }
         }
-        
+
         int buttonSavedPA = 0;
         void getProductAnalysis(int button = 0, int pageNum = 1)
         {
-            buttonSavedPA = button; 
+            buttonSavedPA = button;
             string dateType = "";
             switch (button)
             {
@@ -427,7 +428,7 @@ namespace SellerCenterLazada
                 productAnalysis.data.ForEach(p =>
                 {
                     ProductSalesAnalysisModel model = new ProductSalesAnalysisModel();
-                    model.sellerSKU = p.sellerSKU.value.ToString();
+                    model.sellerSKU = HttpUtility.HtmlDecode(p.sellerSKU.value);
                     model.image = p.image.value;
                     model.productName = HttpUtility.HtmlDecode(p.productName.value);
                     switch (button)
@@ -543,7 +544,7 @@ namespace SellerCenterLazada
         private void gridPhanTichDoanhThu_Scroll(object sender, GridScrollEventArgs e)
         {
             var obj = sender as SuperGridControl;
-            if(e.ScrollEventArgs.ScrollOrientation == ScrollOrientation.VerticalScroll && (obj.VScrollMaximum <= obj.VScrollBar.LargeChange + obj.VScrollOffset + 1))
+            if (e.ScrollEventArgs.ScrollOrientation == ScrollOrientation.VerticalScroll && (obj.VScrollMaximum <= obj.VScrollBar.LargeChange + obj.VScrollOffset + 1))
             {
                 new Task(() =>
                 {
@@ -559,7 +560,7 @@ namespace SellerCenterLazada
             AnalysisOverview analysisOverview = APIHelper.GetAnalysisOverview();
             if (analysisOverview.code == 0 && analysisOverview.data != null)
             {
-                buttonShortOfStock.Text = Regex.Replace(buttonShortOfStock.Text, @"\(.+?\)", "") + "(" +  analysisOverview.data.shortOfStock.value + ")";
+                buttonShortOfStock.Text = Regex.Replace(buttonShortOfStock.Text, @"\(.+?\)", "") + "(" + analysisOverview.data.shortOfStock.value + ")";
                 buttonConversionDropping.Text = Regex.Replace(buttonShortOfStock.Text, @"\(.+?\)", "") + "(" + analysisOverview.data.conversionDropping.value + ")";
                 buttonRevenueDropping.Text = Regex.Replace(buttonShortOfStock.Text, @"\(.+?\)", "") + "(" + analysisOverview.data.revenueDropping.value + ")";
                 buttonNotSelling.Text = Regex.Replace(buttonShortOfStock.Text, @"\(.+?\)", "") + "(" + analysisOverview.data.notSelling.value + ")";
@@ -604,10 +605,18 @@ namespace SellerCenterLazada
             int count = 0;
             foreach (ProductInfoVoList p in productInfoVoListBindingSource)
             {
-                //hẹn giờ
                 if (p.feedStatus == 0)
                 {
-                    var result = APIHelper.CreateFeed(p);
+                    var result = "";
+                    switch (btnDangDao.Text)
+                    {
+                        case "Đăng dạo Phong cách tự do":
+                            result = APIHelper.CreateFreeStyle(p);
+                            break;
+                        case "Đăng dạo Thông tin mới":
+                            result = APIHelper.CreateFeed(p);
+                            break;
+                    }
                     if (result.IndexOf("success") > -1)
                     {
                         richTextBox1.AppendText("Đăng dạo sản phẩm " + p.title + " thành công!");
@@ -674,7 +683,7 @@ namespace SellerCenterLazada
         private void productInfo_CellValueChanged(object sender, GridCellValueChangedEventArgs e)
         {
             var productInfor = (ProductInfoVoList)(e.GridCell.GridRow.DataItem);
-            if(productInfor.QueueDate.HasValue && productInfor.QueueDate.Value.Year > 2019)
+            if (productInfor.QueueDate.HasValue && productInfor.QueueDate.Value.Year > 2019)
             {
                 _sellerProductInfoRepository.UpdateSellerProductInfos(new SellerProductInfo
                 {
@@ -687,7 +696,7 @@ namespace SellerCenterLazada
                     SkuId = productInfor.skuId,
                     Title = productInfor.title
                 });
-            } 
+            }
             else
             {
                 _sellerProductInfoRepository.UpdateSellerProductInfos(new SellerProductInfo
@@ -701,6 +710,40 @@ namespace SellerCenterLazada
                     SkuId = productInfor.skuId,
                     Title = productInfor.title
                 });
+            }
+        }
+
+        private void btnThongTinMoi_Click(object sender, EventArgs e)
+        {
+            btnDangDao.Text = "Đăng dạo Thông tin mới";
+            lock (productInfoVoListBindingSource)
+            {
+                var result = APIHelper.GetShopNewArrivalProducts();
+                result?.ForEach(item => item.Account = currentUser);
+                productInfoVoListBindingSource.DataSource = result;
+            }
+        }
+        int pagePhongCachTuDo = 1;
+        private void btnPhongCachTuDo_Click(object sender, EventArgs e)
+        {
+            btnDangDao.Text = "Đăng dạo Phong cách tự do";
+            lock (productInfoVoListBindingSource)
+            {
+                var result = APIHelper.SearchShopProducts(pagePhongCachTuDo);
+                if (result.Count < 100)
+                {
+                    btnPhongCachTuDo.Enabled = false;
+                }
+                if (pagePhongCachTuDo > 1)
+                {
+                    var listConcat = (List<ProductInfoVoList>)productInfoVoListBindingSource.DataSource;
+                    result = listConcat.Concat(result).ToList();
+                }
+                result?.ForEach(item => item.Account = currentUser);
+                productInfoVoListBindingSource.DataSource = result;
+                productInfo.Update();
+                productInfo.Refresh();
+                pagePhongCachTuDo++;
             }
         }
     }

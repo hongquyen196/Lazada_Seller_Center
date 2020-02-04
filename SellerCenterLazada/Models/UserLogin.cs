@@ -7,6 +7,7 @@ namespace SellerCenterLazada.Models
 {
     public class UserLogin
     {
+        public int shopId { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string name { get; set; }
