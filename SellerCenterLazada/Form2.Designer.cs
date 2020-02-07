@@ -38,8 +38,9 @@ namespace SellerCenterLazada
             this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn2 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn3 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
-            this.gridColumn4 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn5 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridColumn56 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridColumn4 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.userLoginBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.btnDocFile = new DevComponents.DotNetBar.ButtonX();
@@ -63,9 +64,9 @@ namespace SellerCenterLazada
             this.gridColumn6 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn7 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn8 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridColumn12 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn9 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn10 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
-            this.gridColumn12 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn15 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn16 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn17 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
@@ -193,7 +194,7 @@ namespace SellerCenterLazada
             this.ribbonControl1.SystemText.QatRemoveItemText = "&Remove from Quick Access Toolbar";
             this.ribbonControl1.TabGroupHeight = 14;
             this.ribbonControl1.TabIndex = 0;
-            this.ribbonControl1.Text = "Lazada Seller";
+            this.ribbonControl1.Text = "Seller Center Tool";
             // 
             // styleManager2
             // 
@@ -215,8 +216,9 @@ namespace SellerCenterLazada
             this.gridAccount.PrimaryGrid.Columns.Add(this.gridColumn1);
             this.gridAccount.PrimaryGrid.Columns.Add(this.gridColumn2);
             this.gridAccount.PrimaryGrid.Columns.Add(this.gridColumn3);
-            this.gridAccount.PrimaryGrid.Columns.Add(this.gridColumn4);
             this.gridAccount.PrimaryGrid.Columns.Add(this.gridColumn5);
+            this.gridAccount.PrimaryGrid.Columns.Add(this.gridColumn56);
+            this.gridAccount.PrimaryGrid.Columns.Add(this.gridColumn4);
             this.gridAccount.PrimaryGrid.DataSource = this.userLoginBindingSource;
             this.gridAccount.PrimaryGrid.MultiSelect = false;
             this.gridAccount.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row;
@@ -246,18 +248,25 @@ namespace SellerCenterLazada
             this.gridColumn3.Name = "Tên";
             this.gridColumn3.Width = 150;
             // 
+            // gridColumn5
+            // 
+            this.gridColumn5.AllowEdit = false;
+            this.gridColumn5.DataPropertyName = "status";
+            this.gridColumn5.Name = "Trạng thái";
+            // 
+            // gridColumn56
+            // 
+            this.gridColumn56.AllowEdit = false;
+            this.gridColumn56.DataPropertyName = "shopId";
+            this.gridColumn56.DefaultNewRowCellValue = "";
+            this.gridColumn56.Name = "ShopId";
+            // 
             // gridColumn4
             // 
             this.gridColumn4.AllowEdit = false;
             this.gridColumn4.DataPropertyName = "cookie";
             this.gridColumn4.Name = "Cookie";
             this.gridColumn4.Width = 200;
-            // 
-            // gridColumn5
-            // 
-            this.gridColumn5.AllowEdit = false;
-            this.gridColumn5.DataPropertyName = "status";
-            this.gridColumn5.Name = "Trạng thái";
             // 
             // userLoginBindingSource
             // 
@@ -280,7 +289,7 @@ namespace SellerCenterLazada
             this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel1.Location = new System.Drawing.Point(8, 170);
             this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(1086, 50);
+            this.groupPanel1.Size = new System.Drawing.Size(1086, 41);
             // 
             // 
             // 
@@ -310,19 +319,18 @@ namespace SellerCenterLazada
             // 
             this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel1.TabIndex = 2;
-            this.groupPanel1.Text = "Cài đặt tài khoản";
             // 
             // btnDocFile
             // 
             this.btnDocFile.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDocFile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnDocFile.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnDocFile.Location = new System.Drawing.Point(847, 2);
+            this.btnDocFile.Location = new System.Drawing.Point(702, 7);
             this.btnDocFile.Name = "btnDocFile";
-            this.btnDocFile.Size = new System.Drawing.Size(75, 23);
+            this.btnDocFile.Size = new System.Drawing.Size(87, 23);
             this.btnDocFile.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnDocFile.TabIndex = 4;
-            this.btnDocFile.Text = "Đọc file";
+            this.btnDocFile.Text = "Thêm từ tệp tin";
             this.btnDocFile.Click += new System.EventHandler(this.btnDocFile_Click);
             // 
             // btnDangNhap
@@ -330,7 +338,7 @@ namespace SellerCenterLazada
             this.btnDangNhap.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDangNhap.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnDangNhap.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnDangNhap.Location = new System.Drawing.Point(743, 2);
+            this.btnDangNhap.Location = new System.Drawing.Point(830, 7);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(75, 23);
             this.btnDangNhap.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -343,7 +351,7 @@ namespace SellerCenterLazada
             this.btnThem.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnThem.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnThem.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnThem.Location = new System.Drawing.Point(640, 2);
+            this.btnThem.Location = new System.Drawing.Point(621, 7);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(75, 23);
             this.btnThem.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -354,7 +362,7 @@ namespace SellerCenterLazada
             // txtPassword
             // 
             this.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtPassword.Location = new System.Drawing.Point(439, 3);
+            this.txtPassword.Location = new System.Drawing.Point(447, 8);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(146, 20);
@@ -365,7 +373,7 @@ namespace SellerCenterLazada
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(375, 6);
+            this.label2.Location = new System.Drawing.Point(383, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 2;
@@ -374,7 +382,7 @@ namespace SellerCenterLazada
             // txtAccount
             // 
             this.txtAccount.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtAccount.Location = new System.Drawing.Point(193, 3);
+            this.txtAccount.Location = new System.Drawing.Point(201, 8);
             this.txtAccount.Name = "txtAccount";
             this.txtAccount.Size = new System.Drawing.Size(146, 20);
             this.txtAccount.TabIndex = 1;
@@ -384,7 +392,7 @@ namespace SellerCenterLazada
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(129, 6);
+            this.label1.Location = new System.Drawing.Point(137, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
@@ -493,12 +501,14 @@ namespace SellerCenterLazada
             // 
             this.btnHenGio.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnHenGio.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnHenGio.Location = new System.Drawing.Point(626, 3);
+            this.btnHenGio.Enabled = false;
+            this.btnHenGio.Location = new System.Drawing.Point(307, 3);
             this.btnHenGio.Name = "btnHenGio";
             this.btnHenGio.Size = new System.Drawing.Size(75, 23);
             this.btnHenGio.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnHenGio.TabIndex = 1;
             this.btnHenGio.Text = "Hẹn giờ";
+            this.btnHenGio.TextColor = System.Drawing.Color.RoyalBlue;
             this.btnHenGio.Click += new System.EventHandler(this.btnHenGio_Click);
             // 
             // btnDangDao
@@ -506,12 +516,13 @@ namespace SellerCenterLazada
             this.btnDangDao.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDangDao.AutoSize = true;
             this.btnDangDao.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnDangDao.Location = new System.Drawing.Point(707, 3);
+            this.btnDangDao.Location = new System.Drawing.Point(388, 3);
             this.btnDangDao.Name = "btnDangDao";
             this.btnDangDao.Size = new System.Drawing.Size(75, 23);
             this.btnDangDao.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnDangDao.TabIndex = 1;
             this.btnDangDao.Text = "Đăng dạo";
+            this.btnDangDao.TextColor = System.Drawing.Color.RoyalBlue;
             this.btnDangDao.Click += new System.EventHandler(this.btnDangDao_Click);
             // 
             // productInfo
@@ -532,16 +543,16 @@ namespace SellerCenterLazada
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn6);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn7);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn8);
+            this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn12);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn9);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn10);
-            this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn12);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn15);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn16);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn17);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn18);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn19);
             this.productInfo.PrimaryGrid.DataSource = this.productInfoVoListBindingSource;
-            this.productInfo.Size = new System.Drawing.Size(938, 263);
+            this.productInfo.Size = new System.Drawing.Size(943, 312);
             this.productInfo.TabIndex = 0;
             this.productInfo.Text = "superGridControl1";
             this.productInfo.CellValueChanged += new System.EventHandler<DevComponents.DotNetBar.SuperGrid.GridCellValueChangedEventArgs>(this.productInfo_CellValueChanged);
@@ -551,13 +562,14 @@ namespace SellerCenterLazada
             this.gridColumn20.DataPropertyName = "QueueDate";
             this.gridColumn20.EditorType = typeof(SellerCenterLazada.Controls.MyDatePicker);
             this.gridColumn20.Name = "Hẹn giờ";
-            this.gridColumn20.Width = 150;
+            this.gridColumn20.Width = 130;
             // 
             // gridColumn11
             // 
             this.gridColumn11.DataPropertyName = "title";
             this.gridColumn11.Name = "Tiêu đề";
             this.gridColumn11.ReadOnly = true;
+            this.gridColumn11.Width = 150;
             // 
             // gridColumn6
             // 
@@ -580,6 +592,15 @@ namespace SellerCenterLazada
             this.gridColumn8.Name = "Giá giảm";
             this.gridColumn8.ReadOnly = true;
             // 
+            // gridColumn12
+            // 
+            this.gridColumn12.CellStyles.Default.Alignment = DevComponents.DotNetBar.SuperGrid.Style.Alignment.MiddleCenter;
+            this.gridColumn12.DataPropertyName = "feedStatus";
+            this.gridColumn12.DefaultNewRowCellValue = false;
+            this.gridColumn12.EditorType = typeof(DevComponents.DotNetBar.SuperGrid.GridCheckBoxXEditControl);
+            this.gridColumn12.Name = "Trạng thái";
+            this.gridColumn12.ReadOnly = true;
+            // 
             // gridColumn9
             // 
             this.gridColumn9.DataPropertyName = "skuId";
@@ -593,13 +614,6 @@ namespace SellerCenterLazada
             this.gridColumn10.EditorType = typeof(DevComponents.DotNetBar.SuperGrid.GridDoubleIntInputEditControl);
             this.gridColumn10.Name = "Item Id";
             this.gridColumn10.ReadOnly = true;
-            // 
-            // gridColumn12
-            // 
-            this.gridColumn12.DataPropertyName = "feedStatus";
-            this.gridColumn12.EditorType = typeof(DevComponents.DotNetBar.SuperGrid.GridDoubleIntInputEditControl);
-            this.gridColumn12.Name = "Trạng thái";
-            this.gridColumn12.ReadOnly = true;
             // 
             // gridColumn15
             // 
@@ -1125,7 +1139,6 @@ namespace SellerCenterLazada
             this.sideNavItem2.Panel = this.sideNavPanel1;
             this.sideNavItem2.Symbol = "";
             this.sideNavItem2.Text = "Quản lý đăng dạo";
-            this.sideNavItem2.Click += new System.EventHandler(this.sideNavItem2_Click);
             // 
             // sideNavItem3
             // 
@@ -1167,10 +1180,12 @@ namespace SellerCenterLazada
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(9, 226);
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.Location = new System.Drawing.Point(9, 217);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(1059, 43);
+            this.richTextBox1.Size = new System.Drawing.Size(1085, 52);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
@@ -1409,5 +1424,6 @@ namespace SellerCenterLazada
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn55;
         private DevComponents.DotNetBar.ButtonX btnPhongCachTuDo;
         private DevComponents.DotNetBar.ButtonX btnThongTinMoi;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn56;
     }
 }

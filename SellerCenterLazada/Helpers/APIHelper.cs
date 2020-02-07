@@ -177,7 +177,7 @@ namespace SellerCenterLazada
             return JsonConvert.DeserializeObject<AnalysisOverview>(data);
         }
 
-        public static string CreateFeed(ProductInfoVoList productInfoVo)
+        public static Feed.Result CreateFeed(ProductInfoVoList productInfoVo)
         {
             try
             {
@@ -201,7 +201,7 @@ namespace SellerCenterLazada
                 feed.feedContent = feedContent;
                 feed.feedDesc = feedDesc;
                 var data = Post(CREATE_FEED_URL, JsonConvert.SerializeObject(feed));
-                return data;
+                return JsonConvert.DeserializeObject<Feed.Result>(data);
             }
             catch (Exception e)
             {
@@ -209,22 +209,17 @@ namespace SellerCenterLazada
                 return null;
             }
         }
-        public static string CreateFreeStyle(ProductInfoVoList productInfoVo)
+        public static FreeStyle.Result CreateFreeStyle(List<FreestyleObject> freestyleObject)
         {
             try
             {
                 FreeStyle freeStyle = new FreeStyle();
-                freeStyle.freestyleObjects = new List<FreestyleObject>();
-                freeStyle.freestyleObjects.Add(new FreestyleObject(
-                    productInfoVo.skuId,
-                    productInfoVo.itemId,
-                    productInfoVo.imageUrl
-                ));
+                freeStyle.freestyleObjects = freestyleObject;
                 freeStyle.description = new Description();
                 freeStyle.description.vi_VN = "";
                 freeStyle.shopId = shopId;
                 var data = Post(CREATE_FREE_STYLE, JsonConvert.SerializeObject(freeStyle));
-                return data;
+                return JsonConvert.DeserializeObject<FreeStyle.Result>(data);
             }
             catch (Exception e)
             {

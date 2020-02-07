@@ -39,5 +39,12 @@ namespace SellerCenterLazada.Models
         public object feedThemeId { get; set; }
         public object publishTimestamp { get; set; }
         public int shopId { get; set; }
+        public class Result
+        {
+            public int status { get; set; }
+            public string message { get; set; }
+            public string result { get; set; }
+        }
     }
+   
 }

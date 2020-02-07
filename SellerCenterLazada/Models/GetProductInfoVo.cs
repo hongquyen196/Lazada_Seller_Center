@@ -25,6 +25,7 @@ namespace SellerCenterLazada.Models
         public DateTime? QueueDate { get; set; }
         public List<long> categories { get; set; }
         public string Account { get; set; }
+        public bool Selected { get; set; }
     }
 
     public class PageInfo
@@ -38,7 +39,7 @@ namespace SellerCenterLazada.Models
         public object algorithm { get; set; }
     }
 
-    public class Result
+    public class ResultPI
     {
         public List<ProductInfoVoList> productInfoVoList { get; set; }
         public PageInfo pageInfo { get; set; }
@@ -48,6 +49,6 @@ namespace SellerCenterLazada.Models
     {
         public long status { get; set; }
         public string message { get; set; }
-        public Result result { get; set; }
+        public ResultPI result { get; set; }
     }
 }

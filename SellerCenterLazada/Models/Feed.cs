@@ -40,5 +40,11 @@ namespace SellerCenterLazada.Models
     {
         public List<FeedContent> feedContent { get; set; }
         public FeedDesc feedDesc { get; set; }
+        public class Result
+        {
+            public int status { get; set; }
+            public string message { get; set; }
+            public string result { get; set; }
+        }
     }
 }
