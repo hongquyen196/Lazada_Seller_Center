@@ -127,12 +127,9 @@ namespace SellerCenterLazada
                 currentUser = userLogin.username;
                 APIHelper.cookie = userLogin.cookie;
                 APIHelper.shopId = userLogin.shopId;
-                //lock (productInfoVoListBindingSource)
-                //{
-                //    var result = APIHelper.GetShopNewArrivalProducts();
-                //    result?.ForEach(item => item.Account = userLogin.username);
-                //    productInfoVoListBindingSource.DataSource = result;
-                //}
+                btnPhongCachTuDo.Enabled = true;
+                productInfoVoListBindingSource.Clear();
+                btnDangDao.Text = "Đăng dạo";
                 richTextBox1.AppendText("\r\n>>>>>" + userLogin.username);
             }
             btnDangDao.Enabled = true;

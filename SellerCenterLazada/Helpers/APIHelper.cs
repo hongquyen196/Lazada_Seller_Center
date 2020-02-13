@@ -57,7 +57,11 @@ namespace SellerCenterLazada
                 request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/66.4.120 Chrome/60.4.3112.120 Safari/537.36";
                 request.Headers.Add("Accept-Language:vi-VN,vi;q=0.8,fr-FR;q=0.6,fr;q=0.4,en-US;q=0.2,en;q=0.2");
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                cookie = Regex.Replace(response.GetResponseHeader("Set-Cookie"), "( Domain=.+?;)|( Path=.{0,2})|( HttpOnly,)", "");
+                cookie = response.GetResponseHeader("Set-Cookie");
+                Match JSID = Regex.Match(cookie, "JSID=(.+?);");
+                Match TID = Regex.Match(cookie, "TID=(.+?);");
+                Match CSRFT = Regex.Match(cookie, "CSRFT=(.+?);");
+                cookie = JSID.Value + TID.Value + CSRFT.Value;
                 request = (HttpWebRequest)WebRequest.Create(LOGIN_URL);
                 request.Method = "POST";
                 request.AllowAutoRedirect = false;
