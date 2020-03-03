@@ -13,5 +13,7 @@ namespace SellerCenterLazada.Models
         public bool IsRunned { set; get; }
         public string SellerAccountID { set; get; }
         public string SellerAccount { set; get; }
+        public int Type { set; get; }
+        public int LicenseId { set; get; }
     }
 }

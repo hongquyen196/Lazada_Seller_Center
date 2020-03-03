@@ -33,16 +33,18 @@ namespace SellerCenterLazada.Repositories
             }
         }
 
-        public List<SellerProductInfo> GetAllQueue()
+        public List<SellerProductInfo> GetAllQueue(int licenseId)
         {
             using (var connection = GetSqlConnection())
             {
-                var result = connection.Query<SellerProductInfo>("spCheckQueue", commandType: CommandType.StoredProcedure);
+                var param = new DynamicParameters();
+                param.Add("@LicenseId", licenseId);
+                var result = connection.Query<SellerProductInfo>("spCheckQueue", param, commandType: CommandType.StoredProcedure);
                 return result.ToList();
             }
         }
 
-        public void UpdateStatus(long itemId, long skuId, bool status)
+        public void UpdateStatus(long itemId, long skuId, int licenseId, bool status)
         {
             using(var connection = GetSqlConnection())
             {
@@ -50,6 +52,7 @@ namespace SellerCenterLazada.Repositories
                 parameters.Add("@ItemId", itemId);
                 parameters.Add("@SkuId", skuId);
                 parameters.Add("@Status", status);
+                parameters.Add("@LicenseId", licenseId);
                 connection.Execute("spChangeStatusSellerProduct", parameters, commandType: CommandType.StoredProcedure);
             }
         }

@@ -552,7 +552,7 @@ namespace SellerCenterLazada
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn18);
             this.productInfo.PrimaryGrid.Columns.Add(this.gridColumn19);
             this.productInfo.PrimaryGrid.DataSource = this.productInfoVoListBindingSource;
-            this.productInfo.Size = new System.Drawing.Size(943, 312);
+            this.productInfo.Size = new System.Drawing.Size(880, 312);
             this.productInfo.TabIndex = 0;
             this.productInfo.Text = "superGridControl1";
             this.productInfo.CellValueChanged += new System.EventHandler<DevComponents.DotNetBar.SuperGrid.GridCellValueChangedEventArgs>(this.productInfo_CellValueChanged);

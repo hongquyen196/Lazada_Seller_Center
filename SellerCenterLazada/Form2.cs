@@ -157,7 +157,9 @@ namespace SellerCenterLazada
                     ImageUrl = item.imageUrl,
                     ItemId = item.itemId,
                     Title = item.title,
-                    QueueDate = item.QueueDate.HasValue ? item.QueueDate.Value.ToUniversalTime() : (DateTime?)null
+                    QueueDate = item.QueueDate.HasValue ? item.QueueDate.Value.ToUniversalTime() : (DateTime?)null,
+                    Type = dangDaoType,
+                    LicenseId = FormLicense.LicenseId
                 }).ToList());
                 _sellerProductInfoRepository.InsertSellerProductInfos(sellerProductInfo);
 
@@ -167,7 +169,7 @@ namespace SellerCenterLazada
                     {
                         while (!IsClosed)
                         {
-                            var productInfos = _sellerProductInfoRepository.GetAllQueue();
+                            var productInfos = _sellerProductInfoRepository.GetAllQueue(FormLicense.LicenseId);
                             if (productInfos != null && productInfos.Count > 0)
                             {
                                 var listGroup = productInfos.GroupBy(item => item.SellerAccountID).ToList();
@@ -198,23 +200,52 @@ namespace SellerCenterLazada
                                                 itemId = p.ItemId,
                                                 skuId = p.SkuId
                                             };
-
-                                            Feed.Result nResult = APIHelper.CreateFeed(q);
-                                            if ("success".Equals(nResult.message))
+                                            if(1.Equals(p.Type))
                                             {
-                                                richTextBox1.AppendText("\r\n>> Đã đăng dạo sản phẩm: " + q.skuId + " => https://pages.lazada.vn/wow/i/vn/LandingPage/feed?feedId=" + nResult.result);
-                                                richTextBox1.SelectionColor = Color.Green;
-                                                _sellerProductInfoRepository.UpdateStatus(p.ItemId, p.SkuId, true);
-                                            }
-                                            else if (nResult.message.IndexOf("has been posted") > -1)
-                                            {
-                                                richTextBox1.SelectionColor = Color.Red;
-                                                richTextBox1.AppendText("\r\nSản phẩm này đã được đăng dạo rồi.");
-                                            }
+                                                Feed.Result nResult = APIHelper.CreateFeed(q);
+                                                if ("success".Equals(nResult.message))
+                                                {
+                                                    richTextBox1.AppendText("\r\n>> Đã đăng dạo sản phẩm: " + q.skuId + " => https://pages.lazada.vn/wow/i/vn/LandingPage/feed?feedId=" + nResult.result);
+                                                    richTextBox1.SelectionColor = Color.Green;
+                                                    _sellerProductInfoRepository.UpdateStatus(p.ItemId, p.SkuId, FormLicense.LicenseId,true);
+                                                }
+                                                else if (nResult.message.IndexOf("has been posted") > -1)
+                                                {
+                                                    richTextBox1.SelectionColor = Color.Red;
+                                                    richTextBox1.AppendText("\r\nSản phẩm này đã được đăng dạo rồi.");
+                                                }
+                                                else
+                                                {
+                                                    richTextBox1.SelectionColor = Color.Red;
+                                                    richTextBox1.AppendText("\r\nKhông đăng dạo được.");
+                                                }
+                                            } 
                                             else
                                             {
-                                                richTextBox1.SelectionColor = Color.Red;
-                                                richTextBox1.AppendText("\r\nKhông đăng dạo được.");
+                                                List<FreestyleObject> freestyleObjects = new List<FreestyleObject>();
+                                                string tempSkuIds = "";
+                                                freestyleObjects.Add(new FreestyleObject(p.SkuId, p.ItemId, p.ImageUrl));
+                                                if (freestyleObjects.Count > 8)
+                                                {
+                                                    tempSkuIds += p.SkuId;
+                                                    FreeStyle.Result fsResult = APIHelper.CreateFreeStyle(freestyleObjects);
+                                                    if ("success".Equals(fsResult.message))
+                                                    {
+                                                        richTextBox1.AppendText("\r\n>> Đã đăng dạo " + freestyleObjects.Count + " sản phẩm: " + tempSkuIds + " => https://pages.lazada.vn/wow/i/vn/LandingPage/feed?feedId=" + fsResult.result);
+                                                        freestyleObjects.ForEach(a => _sellerProductInfoRepository.UpdateStatus(a.itemId, a.skuId, FormLicense.LicenseId,true));
+                                                    }
+                                                    else if ("You can only publish maximum 20 feeds in a day".Equals(fsResult.message))
+                                                    {
+                                                        richTextBox1.AppendText("\r\n>> Bạn chỉ có thể đăng dạo tối đa 20 bài mới trong 1 ngày.");
+                                                        richTextBox1.SelectionColor = Color.Red;
+                                                    }
+                                                    tempSkuIds = "";
+                                                    freestyleObjects.Clear();
+                                                }
+                                                else
+                                                {
+                                                    tempSkuIds += p.SkuId + ", ";
+                                                }
                                             }
                                         });
                                     }
@@ -703,7 +734,8 @@ namespace SellerCenterLazada
                     IsRunned = false,
                     SellerAccount = productInfor.Account,
                     SkuId = productInfor.skuId,
-                    Title = productInfor.title
+                    Title = productInfor.title,
+                    Type = dangDaoType
                 });
             }
             else
@@ -722,9 +754,11 @@ namespace SellerCenterLazada
             }
         }
         int pagePhongCachTuDo = 1;
+        int dangDaoType;
         private void btnPhongCachTuDo_Click(object sender, EventArgs e)
         {
             btnDangDao.Text = "Đăng dạo Phong cách tự do";
+            dangDaoType = 2;
             lock (productInfoVoListBindingSource)
             {
                 var result = APIHelper.SearchShopProducts(pagePhongCachTuDo);
@@ -743,16 +777,19 @@ namespace SellerCenterLazada
                 productInfo.Refresh();
                 pagePhongCachTuDo++;
             }
+            btnHenGio.Enabled = true;
         }
         private void btnThongTinMoi_Click(object sender, EventArgs e)
         {
             btnDangDao.Text = "Đăng dạo Thông tin mới";
+            dangDaoType = 1;
             lock (productInfoVoListBindingSource)
             {
                 var result = APIHelper.GetShopNewArrivalProducts();
                 result?.ForEach(item => item.Account = currentUser);
                 productInfoVoListBindingSource.DataSource = result;
             }
+            btnHenGio.Enabled = true;
         }
     }
 }
