@@ -221,6 +221,7 @@ namespace SellerCenterLazada
                 freeStyle.freestyleObjects = freestyleObject;
                 freeStyle.description = new Description();
                 freeStyle.description.vi_VN = "";
+                freeStyle.feedThemeId = new List<int>();
                 freeStyle.shopId = shopId;
                 var data = Post(CREATE_FREE_STYLE, JsonConvert.SerializeObject(freeStyle));
                 return JsonConvert.DeserializeObject<FreeStyle.Result>(data);

@@ -54,6 +54,7 @@ namespace SellerCenterLazada
             this.tabControlPanel1 = new DevComponents.DotNetBar.TabControlPanel();
             this.sideNav1 = new DevComponents.DotNetBar.Controls.SideNav();
             this.sideNavPanel1 = new DevComponents.DotNetBar.Controls.SideNavPanel();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btnThongTinMoi = new DevComponents.DotNetBar.ButtonX();
             this.btnPhongCachTuDo = new DevComponents.DotNetBar.ButtonX();
             this.btnHenGio = new DevComponents.DotNetBar.ButtonX();
@@ -150,6 +151,7 @@ namespace SellerCenterLazada
             this.tabControlPanel1.SuspendLayout();
             this.sideNav1.SuspendLayout();
             this.sideNavPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListBindingSource)).BeginInit();
             this.sideNavPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
@@ -462,6 +464,7 @@ namespace SellerCenterLazada
             // 
             // sideNavPanel1
             // 
+            this.sideNavPanel1.Controls.Add(this.numericUpDown1);
             this.sideNavPanel1.Controls.Add(this.btnThongTinMoi);
             this.sideNavPanel1.Controls.Add(this.btnPhongCachTuDo);
             this.sideNavPanel1.Controls.Add(this.btnHenGio);
@@ -473,10 +476,34 @@ namespace SellerCenterLazada
             this.sideNavPanel1.Size = new System.Drawing.Size(938, 352);
             this.sideNavPanel1.TabIndex = 2;
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(246, 4);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(46, 20);
+            this.numericUpDown1.TabIndex = 5;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Visible = false;
+            // 
             // btnThongTinMoi
             // 
             this.btnThongTinMoi.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnThongTinMoi.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnThongTinMoi.Enabled = false;
             this.btnThongTinMoi.Location = new System.Drawing.Point(104, 3);
             this.btnThongTinMoi.Name = "btnThongTinMoi";
             this.btnThongTinMoi.Size = new System.Drawing.Size(75, 23);
@@ -489,6 +516,7 @@ namespace SellerCenterLazada
             // 
             this.btnPhongCachTuDo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnPhongCachTuDo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnPhongCachTuDo.Enabled = false;
             this.btnPhongCachTuDo.Location = new System.Drawing.Point(3, 3);
             this.btnPhongCachTuDo.Name = "btnPhongCachTuDo";
             this.btnPhongCachTuDo.Size = new System.Drawing.Size(95, 23);
@@ -516,6 +544,7 @@ namespace SellerCenterLazada
             this.btnDangDao.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDangDao.AutoSize = true;
             this.btnDangDao.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnDangDao.Enabled = false;
             this.btnDangDao.Location = new System.Drawing.Point(388, 3);
             this.btnDangDao.Name = "btnDangDao";
             this.btnDangDao.Size = new System.Drawing.Size(75, 23);
@@ -598,8 +627,7 @@ namespace SellerCenterLazada
             this.gridColumn12.DataPropertyName = "feedStatus";
             this.gridColumn12.DefaultNewRowCellValue = false;
             this.gridColumn12.EditorType = typeof(DevComponents.DotNetBar.SuperGrid.GridCheckBoxXEditControl);
-            this.gridColumn12.Name = "Trạng thái";
-            this.gridColumn12.ReadOnly = true;
+            this.gridColumn12.Name = "Đăng dạo rồi?";
             // 
             // gridColumn9
             // 
@@ -1301,6 +1329,7 @@ namespace SellerCenterLazada
             this.sideNav1.PerformLayout();
             this.sideNavPanel1.ResumeLayout(false);
             this.sideNavPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productInfoVoListBindingSource)).EndInit();
             this.sideNavPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).EndInit();
@@ -1425,5 +1454,6 @@ namespace SellerCenterLazada
         private DevComponents.DotNetBar.ButtonX btnPhongCachTuDo;
         private DevComponents.DotNetBar.ButtonX btnThongTinMoi;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn56;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

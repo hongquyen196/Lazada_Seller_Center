@@ -36,7 +36,7 @@ namespace SellerCenterLazada.Models
         public List<FreestyleObject> freestyleObjects { get; set; }
         public Title title { get; set; }
         public Description description { get; set; }
-        public object feedThemeId { get; set; }
+        public List<int> feedThemeId { get; set; }
         public object publishTimestamp { get; set; }
         public int shopId { get; set; }
         public class Result
